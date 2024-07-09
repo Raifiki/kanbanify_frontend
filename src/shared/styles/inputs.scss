@@ -2,8 +2,10 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    background-color: transparent;
+    width: 100%;
     > input{
-        background-color: $grey-middle;
+        background-color: $grey-light;
         border: none;
         outline: none;
         color: $txt-sec;
@@ -29,17 +31,18 @@
         display: none;
         color: $err-red;
         font-size: 14px;
+        background-color: transparent;
     }
 }
 
 
 .ng-valid:required{
-        border-color: $prim-color;
-        color: $txt-prim;
+        border-color: $prim-color !important;
+        color: $txt-prim !important;
 }
 
-.ng-dirty.ng-invalid{
-    border-color: $err-red;
+.ng-dirty.ng-invalid:not(:focus){
+    border-color: $err-red !important;
     ~ span{
         display: flex;
     }

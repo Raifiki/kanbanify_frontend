@@ -1,1 +1,5 @@
-<p>registration works!</p>
+@if (showCard == 'login') {
+    <app-login></app-login>
+} @else {
+    <app-signin></app-signin>
+}

@@ -4,7 +4,12 @@
     border: none;
     padding: 10px 12px;
     border-radius: 5px;
-    min-width: 150px;
+    &:disabled{
+        cursor: auto;
+        background-color: $grey-light;
+        color: $txt-sec;
+        border: 1px $grey-hover solid;
+    }
 }
 
 .btn-prim{
@@ -14,6 +19,7 @@
         background-color: $prim-color-hover;
         transition: all $hover-trans-time ease-in-out;
     }
+
 }
 
 .btn-sec{

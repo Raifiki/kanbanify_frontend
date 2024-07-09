@@ -1,1 +1,20 @@
-<p>login works!</p>
+<div class="login-card">
+    <h1>Login to kanbanify</h1>
+    <form #formLogin="ngForm" (ngSubmit)="login(formLogin)">
+        <div class="ipt-field">
+            <label for="email">Your e-mail adresse*</label>
+            <input type="email" required ngModel name="email" #email autocomplete="off" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" placeholder="example@email.com">
+            <span>Please enter a valid email adresse</span>
+        </div>
+        <div class="ipt-field">
+            <label for="password">Your password*</label>
+            <input type="password" required ngModel name="password" #password >
+            <span>Please enter your password</span>
+        </div>
+        <span>* required field to login</span>
+        <div class="btn-group">
+            <button class="btn btn-sec" type="button">Register</button>
+            <button class="btn btn-prim" type="submit" [disabled]="!formLogin.valid">Login</button>
+        </div>
+    </form>
+</div>
