@@ -1,1 +1,36 @@
-/* You can add global styles to this file, and also import other style files */
+@import './shared/styles/include.scss';
+
+
+* {
+    box-sizing: border-box;
+    font-size: 16px;
+    background-color: $grey-dark;
+}
+
+/*scroll-bar*/
+/* Chrome, Edge, and Safari */
+
+*::-webkit-scrollbar {
+    width: 5px !important;
+  }
+  
+  *::-webkit-scrollbar-track {
+    background: $grey-dark;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    background-color: $prim-color;
+    border-radius: 10px;
+    border: 3px solid #ffffff00;
+  }
+  
+  *::-webkit-scrollbar-button {
+    display: none;
+  }
+  
+  @-moz-document url-prefix() {
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: $prim-color $grey-dark;
+    }
+  }

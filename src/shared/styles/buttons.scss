@@ -1,0 +1,42 @@
+
+.btn{
+    cursor: pointer;
+    border: none;
+    padding: 10px 12px;
+    border-radius: 5px;
+    min-width: 150px;
+}
+
+.btn-prim{
+    background-color: $prim-color;
+    color: $txt-dark;
+    &:hover{
+        background-color: $prim-color-hover;
+        transition: all $hover-trans-time ease-in-out;
+    }
+}
+
+.btn-sec{
+    background-color: transparent;
+    border: 1px $sec-color solid;
+    color: $sec-color;
+    &:hover{
+        color: $txt-dark;
+        background-color: $sec-color-hover;
+        transition: all $hover-trans-time ease-in-out;
+    }
+}
+
+.btn-icon{
+    background-color: $prim-color;
+    mask-repeat: no-repeat;
+    mask-position: 50% 50%;
+    mask-size: contain;
+    min-width: unset;
+    width: 40px;
+    aspect-ratio: 1;
+    &:hover{
+        background-color: $prim-color-hover;
+        transition: all $hover-trans-time ease-in-out;
+    }
+}

@@ -1,0 +1,70 @@
+.ipt-field{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    > input{
+        background-color: $grey-middle;
+        border: none;
+        outline: none;
+        color: $txt-sec;
+        padding: 10px 12px;
+        border-radius: 5px;
+        border-bottom: 1px transparent solid;
+        font-size: 16px;
+        &:hover{
+            background-color: $grey-hover;
+        }
+        &:focus{
+            background-color: $grey-hover !important;
+            border-color: $acc-color !important;
+            transition: all $hover-trans-time ease-in-out;
+        }
+    }
+    > label{
+        background-color: transparent;
+        color: $txt-sec;
+        font-size: 16px;
+    }
+    > span{
+        display: none;
+        color: $err-red;
+        font-size: 14px;
+    }
+}
+
+
+.ng-valid:required{
+        border-color: $prim-color;
+        color: $txt-prim;
+}
+
+.ng-dirty.ng-invalid{
+    border-color: $err-red;
+    ~ span{
+        display: flex;
+    }
+}
+
+.ipt-radio-group{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    >label{
+        cursor: pointer;
+        padding: 10px 12px;
+        border-radius: 5px;
+        background-color: $grey-hover;
+        &:hover{
+            background-color: $acc-color !important;
+            color: $txt-dark;
+            transition: all $hover-trans-time ease-in-out;
+        }
+    }
+    >input {
+        display: none;
+        &:checked + label{
+            background-color: $sec-color;
+            color: $txt-dark;
+        }
+    }
+}

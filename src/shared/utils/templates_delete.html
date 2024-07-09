@@ -1,0 +1,34 @@
+
+<!-- Formular mit Validierung -->
+<form #formTest="ngForm">
+    <div class="ipt-field-text">
+        <label for="email">Name des Input Feld</label>
+        <input type="email" required ngModel name="email" #email>
+        <span>Hier Error massage eintragen</span>
+    </div>
+    <div class="ipt-field-text">
+        <label for="temp">Textfeld</label>
+        <input class="ipt" type="text" ngModel name="temp" #temp>
+    </div>
+    <div class="ipt-field">
+        <label for="datepicker">Select a date:</label>
+        <input type="date" id="datepicker" ngModel name="datepicker" #datepicker required>
+        <span>Error massage</span>
+    </div>
+    <div class="ipt-field ipt-radio-group">
+        <input type="radio" name="radio" #radio1 id="radio1" checked>
+        <label for="radio1">Option1</label>
+        <input type="radio" name="radio" #radio1 id="radio2">
+        <label for="radio2">Option2</label>
+        <input type="radio" name="radio" #radio1 id="radio3">
+        <label for="radio3">Option3</label>
+    </div>
+</form>
+
+
+<!-- ipt ohne Form -->
+
+<div class="ipt-field-text">
+    <label for="txt">Textfeld</label>
+    <input class="ipt" type="email" placeholder="without form" #txt>
+</div>
