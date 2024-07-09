@@ -1,1 +1,36 @@
-<p>signin works!</p>
+<div class="signin-card">
+    <h1>Register for kanbanify</h1>
+    <form #formSignin="ngForm" (ngSubmit)="signin(formSignin)">
+        <div class="ipt-field">
+            <label for="email">Your e-mail adresse*</label>
+            <input type="email" required ngModel name="email" #email autocomplete="off" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" placeholder="example@email.com">
+            <span>Please enter a valid email adresse</span>
+        </div>
+        <div class="ipt-field">
+            <label for="firstname">Your first name*</label>
+            <input type="text" required ngModel name="firstname" #firstname autocomplete="off" placeholder="Max">
+            <span>We need your firstname </span>
+        </div>
+        <div class="ipt-field">
+            <label for="surename">Your surename*</label>
+            <input type="text" required ngModel name="surename" #surename autocomplete="off" placeholder="Mustermann">
+            <span>We need your last name</span>
+        </div>
+        <div class="ipt-field">
+            <label for="password">Your password*</label>
+            <input type="password" required ngModel name="password" #password="ngModel" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$">
+            <span>Your password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number and one special character</span>
+        </div>
+        <div class="ipt-field">
+            <label for="pwConfirm">Please repeat your password*</label>
+            <input type="password" required ngModel name="pwConfirm" #pwConfirm="ngModel">
+        </div>
+        @if (pwConfirm.value !== password.value && pwConfirm.touched && password.valid) {
+            <span class="msg-pw-missmatch show">Ups, password do not match - please try again</span>
+        }
+        <span>* required field to sign in</span>
+        <div class="btn-group">
+            <button class="btn btn-prim" type="submit" [disabled]="!formSignin.valid || !isPWmatching(formSignin)">register to kanbanify</button>
+        </div>
+    </form>
+</div>

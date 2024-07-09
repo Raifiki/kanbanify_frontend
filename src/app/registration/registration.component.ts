@@ -15,5 +15,5 @@ import { SigninComponent } from './signin/signin.component';
   styleUrl: './registration.component.scss'
 })
 export class RegistrationComponent {
-  showCard: 'login' | 'signin' = 'login';
+  showCard: 'login' | 'signin' = 'signin';
 }

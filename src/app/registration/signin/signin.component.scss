@@ -1,0 +1,39 @@
+@import '../../../shared/styles/include.scss';
+
+.signin-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 450px;
+    background-color: $grey-middle;
+    border-radius: 20px;
+    padding: 50px;
+    > form{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 32px;
+        background-color: transparent;
+        width: 100%;
+        > span{
+            color: $txt-sec;
+            font-size: 14px;
+            background-color: transparent;
+            width: 100%;
+        }
+        > .btn-group{
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            background-color: transparent;
+            width: 100%;
+        }
+        > .msg-pw-missmatch{
+            display: flex;
+            color: $err-red;
+        }
+    }
+}

@@ -14,8 +14,6 @@ export class LoginComponent {
 
 
   login(loginForm: NgForm){
-    console.log(loginForm.value);
-    
     if (loginForm.valid) {
       console.log('send login data to server', loginForm.value);
     }
