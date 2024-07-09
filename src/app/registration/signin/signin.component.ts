@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
@@ -9,7 +9,7 @@ import { FormsModule, NgForm } from '@angular/forms';
   styleUrl: './signin.component.scss'
 })
 export class SigninComponent {
-
+  @Output() showLoginCardEvent = new EventEmitter<'login'>();
   signin(signinForm:NgForm){
     if (signinForm.valid) {
       console.log('send signin data to server', signinForm.value);
@@ -18,6 +18,10 @@ export class SigninComponent {
 
   isPWmatching(signinForm:NgForm){
     return signinForm.value.password === signinForm.value.pwConfirm
+  }
+
+  showLoginCard(){
+    this.showLoginCardEvent.emit('login');
   }
 
 }

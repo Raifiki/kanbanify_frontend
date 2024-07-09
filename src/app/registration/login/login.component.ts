@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
@@ -9,6 +9,8 @@ import { FormsModule, NgForm } from '@angular/forms';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+  @Output() showRegisterCardEvent = new EventEmitter<'register'>();
+
   email: string = '';
   password: string = '';
 
@@ -17,5 +19,9 @@ export class LoginComponent {
     if (loginForm.valid) {
       console.log('send login data to server', loginForm.value);
     }
+  }
+
+  showRegisterCard() {
+    this.showRegisterCardEvent.emit('register');
   }
 }

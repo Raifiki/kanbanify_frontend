@@ -1,6 +1,7 @@
 @import '../../../shared/styles/include.scss';
 
 .signin-card{
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -35,5 +36,13 @@
             display: flex;
             color: $err-red;
         }
+    }
+    > .btn-icon{
+        position: absolute;
+        mask-image: url('./../../../assets/icons/back.svg');
+        width: 20px;
+        aspect-ratio: 1;
+        right: 20px;
+        top: 20px;
     }
 }
