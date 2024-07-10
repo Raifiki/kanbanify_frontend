@@ -53,12 +53,12 @@
     border-left: 2px transparent solid;
     font-size: 18px;
     &:hover{
-        color: $sec-color;
+        color: $prim-color;
         transition: all $hover-trans-time ease-in-out;
     }
 }
 
 .btn-tab.active-tab{
-    border-left: 2px $acc-color solid;
-    background-color: rgba($color: $acc-color, $alpha: 0.05);
+    border-left: 2px $prim-color solid;
+    background-color: rgba($color: $prim-color, $alpha: 0.05);
 }

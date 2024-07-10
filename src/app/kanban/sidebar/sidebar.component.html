@@ -5,8 +5,8 @@
     </div>
     <div class="wrapper-sidebar-menu">
         <div class="board-list">
-            @for (board of boardList; track board) {
-                <button (click)="selectBoard(board)" class="btn btn-tab active-tab" [class.active-tab]="board === selectedBoard">{{ board.name }}</button>
+            @for (board of boardList(); track board) {
+                <button (click)="selectBoard(board)" class="btn btn-tab active-tab" [class.active-tab]="board === selectedBoard()">{{ board.name }}</button>
             }
         </div>
     </div>

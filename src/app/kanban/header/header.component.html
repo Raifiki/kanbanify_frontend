@@ -1,1 +1,11 @@
-<p>header works!</p>
+<div class="wrapper-header">
+    <div class="header-board-info">
+        <h1>{{ selectedBoard().name }}</h1>
+        <div class="header-user-list">
+            @for (user of selectedBoard().members; track user) {
+                <div class="user-initials">{{ user.initials }}</div>
+            }
+        </div>
+    </div>
+    <button (click)="temp()" class="btn btn-sec">Logout</button>
+</div>

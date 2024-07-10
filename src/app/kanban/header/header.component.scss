@@ -1,0 +1,31 @@
+@import './../../../shared/styles/include.scss';
+
+.wrapper-header{
+    display: flex;
+    gap: 48px;
+    padding: 32px;
+    > .header-board-info{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 8px;
+        flex-grow: 2;
+        > h1{
+            margin: 0;
+        }
+        > .header-user-list{
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            > .user-initials{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 42px;
+                aspect-ratio: 1;
+                border-radius: 50%;
+                background-color: $grey-middle
+            }
+        }
+    }
+}

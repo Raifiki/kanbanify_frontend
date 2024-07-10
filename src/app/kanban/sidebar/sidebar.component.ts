@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject, signal, Signal } from '@angular/core';
 
 // import models
 import { Board } from '../../../shared/utils/models';
+
+// import services
+import { BoardService } from '../../../services/board.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,22 +14,20 @@ import { Board } from '../../../shared/utils/models';
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
-  boardList: Board[] = [];
-  selectedBoard: Board = {} as Board;
+  boardList: Signal<Board[]> = signal([]);
+  selectedBoard: Signal<Board> = signal(new Board());
+
+  boardService = inject(BoardService);
 
   constructor() { 
-    //delete at end start
-    this.boardList = [
-      new Board('Test Board 1'),
-      new Board('Board 2'),
-      new Board('Und noch ein länger Name des Board 3'),
-    ]
-    this.selectedBoard = this.boardList[1];
-    // delete at end end
+    this.boardList = computed(()=>{return this.boardService.boardList()});
+    this.selectedBoard = computed(()=>{
+      return this.boardService.selectedBoard()
+    });
   }
 
   selectBoard(board: Board) {
-    this.selectedBoard = board;
+    this.boardService.selectBoard(board);
   }
 
 }
