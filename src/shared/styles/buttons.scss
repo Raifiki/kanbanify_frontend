@@ -60,4 +60,5 @@
 
 .btn-tab.active-tab{
     border-left: 2px $acc-color solid;
+    background-color: rgba($color: $acc-color, $alpha: 0.05);
 }
