@@ -1,4 +1,5 @@
 import { Component, computed, inject, signal, Signal } from '@angular/core';
+import { Router } from '@angular/router';
 
 // import models
 import { Board, User } from '../../../shared/utils/models';
@@ -18,12 +19,12 @@ export class HeaderComponent {
 
   selectedBoard: Signal<Board> = signal(new Board());
 
-  constructor(){
+  constructor(private router:Router){
     this.selectedBoard = computed(()=>this.boardService.selectedBoard());
   }
 
-  temp(){
+  logout(){
     console.log(this.selectedBoard());
-    
+    this.router.navigate(['/register']);
   }
 }
