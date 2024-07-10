@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,10 +15,12 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
 
+  constructor(private router: Router) { }
 
   login(loginForm: NgForm){
     if (loginForm.valid) {
       console.log('send login data to server', loginForm.value);
+      this.router.navigate(['/board']);
     }
   }
 

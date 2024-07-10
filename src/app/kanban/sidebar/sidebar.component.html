@@ -1,1 +1,13 @@
-<p>sidebar works!</p>
+<div class="wrapper-sidebar">
+    <div class="wrapper-logo">
+        <img src="assets/icons/kanbanify-logo.svg" alt="">
+        <span>kanbanify</span>
+    </div>
+    <div class="wrapper-sidebar-menu">
+        <div class="board-list">
+            @for (board of boardList; track board) {
+                <button (click)="selectBoard(board)" class="btn btn-tab active-tab" [class.active-tab]="board === selectedBoard">{{ board.name }}</button>
+            }
+        </div>
+    </div>
+</div>

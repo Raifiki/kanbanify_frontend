@@ -34,7 +34,7 @@
 }
 
 .btn-icon{
-    background-color: $prim-color;
+    background-color: $txt-sec;
     mask-repeat: no-repeat;
     mask-position: 50% 50%;
     mask-size: contain;
@@ -45,4 +45,19 @@
         background-color: $prim-color-hover;
         transition: all $hover-trans-time ease-in-out;
     }
+}
+
+.btn-tab{
+    border-radius: 0;
+    color: $txt-sec;
+    border-left: 2px transparent solid;
+    font-size: 18px;
+    &:hover{
+        color: $sec-color;
+        transition: all $hover-trans-time ease-in-out;
+    }
+}
+
+.btn-tab.active-tab{
+    border-left: 2px $acc-color solid;
 }

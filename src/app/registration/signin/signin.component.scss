@@ -6,10 +6,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 450px;
     background-color: $grey-middle;
     border-radius: 20px;
-    padding: 50px;
+    padding: 75px 120px;
     > form{
         display: flex;
         flex-direction: column;
@@ -39,10 +38,10 @@
     }
     > .btn-icon{
         position: absolute;
-        mask-image: url('./../../../assets/icons/back.svg');
-        width: 20px;
+        mask-image: url('./../../../assets/icons/arrow_left.svg');
+        width: 30px;
         aspect-ratio: 1;
-        right: 20px;
-        top: 20px;
+        right: 30px;
+        top: 30px;
     }
 }

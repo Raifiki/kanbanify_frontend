@@ -10,9 +10,13 @@ import { FormsModule, NgForm } from '@angular/forms';
 })
 export class SigninComponent {
   @Output() showLoginCardEvent = new EventEmitter<'login'>();
+
+  constructor() { }
+
   signin(signinForm:NgForm){
     if (signinForm.valid) {
       console.log('send signin data to server', signinForm.value);
+      this.showLoginCardEvent.emit('login');
     }
   }
 
