@@ -71,3 +71,24 @@
         }
     }
 }
+
+.ipt-cb-userchip{
+    display: none;
+    ~ label{
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background-color: $grey-middle;
+
+        &:hover{
+            border: 1px $acc-color solid;
+        }
+    }
+    &:checked + label{
+        background-color: $acc-color;
+    }
+}

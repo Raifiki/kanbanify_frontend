@@ -2,8 +2,12 @@
     <div class="header-board-info">
         <h1>{{ selectedBoard().name }}</h1>
         <div class="header-user-list">
-            @for (user of selectedBoard().members; track user) {
-                <div class="user-initials">{{ user.initials }}</div>
+            @for (user of selectedBoard().members; track user; let idx=$index) {
+                <div>
+                    <input class="ipt-cb-userchip" type="checkbox" name="" id="{{ 'user' + idx}}">
+                    <label class="user-initials" for="{{ 'user' + idx}}">{{ user.initials }}</label>
+                    <span>{{ user.name + ' ' + user.surename }}</span>
+                </div>
             }
         </div>
     </div>

@@ -19,17 +19,22 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            > .user-initials{
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 42px;
-                aspect-ratio: 1;
-                border-radius: 50%;
-                background-color: $grey-middle;
-                &:hover{
-                    background-color: $acc-color;
+            > div {
+                position: relative;
+                > span{
+                    position: absolute;
+                    display: none;
+                    bottom: 0;
+                    transform: translate(-50%, calc(100% + 5px));;
+                    left: 50%;
+                    background-color: $grey-middle;
+                    padding: 8px;
+                    border-radius: 3px;
+                    text-wrap: nowrap;
+                    font-size: 14px;
+                }
+                &:hover > span{
+                    display: flex;
                 }
             }
         }
