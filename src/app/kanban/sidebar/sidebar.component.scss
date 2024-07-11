@@ -25,6 +25,16 @@
         flex-direction: column;
         flex-grow: 2;
         overflow-y: auto;
+        > .wrapper-add-board{
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin-top: 16px;
+            margin-bottom: 16px;
+            > .btn-add-board{
+                mask-image: url('./../../../assets/icons/add-square.svg');
+            }
+        }
         > .board-list{
             display: flex;
             flex-direction: column;

@@ -2,7 +2,7 @@ import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { timeInterval } from 'rxjs';
 
 // import models
-import { Board, User } from '../shared/utils/models';
+import { Board, Category, User } from '../shared/utils/models';
 
 // impomrt services
 import { UserService } from './user.service';
@@ -13,6 +13,8 @@ import { UserService } from './user.service';
 export class BoardService {
   public boardList: WritableSignal<Board[]> = signal([]);
   public selectedBoard: WritableSignal<Board>  = signal(new Board());
+
+  public categoryList: WritableSignal<string[]> = signal([]);
 
   private userService = inject(UserService);
 
@@ -31,6 +33,15 @@ export class BoardService {
               boardList[0].name = 'Changed';
               return boardList
             });   
+          } else if(false) {
+            this.selectedBoard.update(board => {
+              board.name = 'Changed';
+              board.categories[0].name = 'Changed';
+              let temp = board.categories[0];
+              board.categories[0] = board.categories[1];
+              board.categories[1] = temp;
+              return board
+            })
           }
         },10000);
         // delete at end end
@@ -40,15 +51,16 @@ export class BoardService {
     this.selectedBoard.set(board);
   }
 
-  getCleanBoardObj(obj:any){
+  private getCleanBoardObj(obj:any){
     let boardJson = {
       name: obj.name,
-      members: this.getMembers(obj.emailList)
+      members: this.getMembers(obj.emailList),
+      categories: this.getCategories()
     }
     return new Board(boardJson);
   }
 
-  getMembers(emailList:string[]): User[]{
+  private getMembers(emailList:string[]): User[]{
     let userList:User[] = [];
     emailList.forEach(email => {
       let user =this.userService.getUserByEmail(email);
@@ -57,4 +69,40 @@ export class BoardService {
     return userList;
   }
 
+  public addNewBoard(name:string){
+    let userEmail = this.userService.signedInUser().email;
+    let newBoard = this.getCleanBoardObj({name, emailList:[userEmail]});
+    this.boardList.update( boardList => {
+      boardList.push(newBoard);
+      return boardList;
+    })
+  }
+
+  private getCategories(){
+    return [
+      new Category('ToDo', true),
+      new Category('In Progress',true),
+      new Category('Done',true),
+    ];
+  }
+
+  public deleteCategory(category:Category) {
+    this.selectedBoard.update(board => {
+      let idx = board.categories.findIndex( cat => cat === category);
+      board.categories.splice(idx, 1);
+      return board
+    })
+    this.updateBoardOnServer();
+  }
+
+  private updateBoardOnServer(){
+    // todo update board + Category on server
+  }
+
+  public addCategory(){
+    this.selectedBoard.update(board => {
+      board.categories.push(new Category('NewCategory'));
+      return board
+    })
+  }
 }

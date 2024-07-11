@@ -1,12 +1,13 @@
 export class Board{
-
     name:string = '';
     members: User[] = [];
+    categories: Category[] = [];
 
     constructor(boardJson?:any){
         if (boardJson) {
             this.name = boardJson.name || '';
             this.members = boardJson.members || [];
+            this.categories = boardJson.categories || [];
         }
     }
 }
@@ -41,5 +42,15 @@ export class User{
     public changeSurename(newSurename:string){
         this.surename = newSurename;
         this.initials = this.getInitials();
+    }
+}
+
+export class Category {
+    public name:string = '';
+    public notUpdatedOnSercer:boolean = true;
+
+    constructor(name:string, snyWithServer?:boolean){
+        this.name = name;
+        this.notUpdatedOnSercer = !snyWithServer || false;
     }
 }

@@ -4,9 +4,13 @@
         <span>kanbanify</span>
     </div>
     <div class="wrapper-sidebar-menu">
+        <div class="wrapper-add-board ipt-field">
+            <input class="ipt" type="text" placeholder="new boardname" [(ngModel)]="newBoardName">
+            <button (click)="addBoard()" class="btn btn-icon btn-add-board"></button>
+        </div>
         <div class="board-list">
             @for (board of boardList(); track board) {
-                <button (click)="selectBoard(board)" class="btn btn-tab active-tab" [class.active-tab]="board === selectedBoard()">{{ board.name }}</button>
+                <button (click)="selectBoard(board)" class="btn btn-tab" [class.active-tab]="board === selectedBoard()">{{ board.name }}</button>
             }
         </div>
     </div>

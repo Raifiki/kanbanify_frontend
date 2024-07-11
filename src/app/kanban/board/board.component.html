@@ -1,1 +1,19 @@
-<p>board works!</p>
+<div class="board">
+    @for (category of board().categories; track $index) {
+        <div class="wrapper-category">
+            <div class="category-header">
+                <input (focus)="category.notUpdatedOnSercer = true" type="text" [(ngModel)]="category.name" [class.show-unsaved-changes]="category.notUpdatedOnSercer">
+                @if (category.notUpdatedOnSercer) {
+                    <button (click)="changeCategoryName(category)" class="btn btn-icon btn-upload"></button>
+                } @else {
+                    <button (click)="deleteCategory(category)" class="btn btn-icon btn-delete"></button>
+                }
+            </div>
+            <div class="tasklist">
+                <div>task1</div>
+                <div>task2</div>
+                <div>task3</div>
+            </div>
+        </div>
+    }
+</div>

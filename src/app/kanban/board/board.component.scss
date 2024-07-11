@@ -1,0 +1,51 @@
+@import './../../../shared/styles/include.scss';
+
+.board{
+    display: flex;
+    height: 100%;
+    gap: 16px;
+    > .wrapper-category{
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        flex-grow: 2;
+        background-color: $grey-middle;
+        border-radius: 8px;
+        padding: 8px;
+
+    }
+}
+
+.category-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    border-bottom: 2px $grey-hover solid;
+    background-color: transparent;
+    padding-bottom: 3px;
+    > input{
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: $txt-sec;
+        font-size: 16px;
+        padding: 12px 12px;
+        flex-grow: 2;
+        border-radius: 5px;
+        &:focus{
+            background-color: $grey-hover;
+        }
+    }
+    > .btn-upload{
+        width: 24px;
+        mask-image: url('./../../../assets/icons/upload.svg');
+    }
+    > .btn-delete{
+        width: 24px;
+        mask-image: url('./../../../assets/icons/delete.svg');
+    }
+    >input:not(:focus).show-unsaved-changes{
+        border-bottom: 1px $err-red solid;
+    }
+}

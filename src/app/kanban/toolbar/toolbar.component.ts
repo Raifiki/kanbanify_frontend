@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+
+// import services
+import { BoardService } from '../../../services/board.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -8,5 +11,11 @@ import { Component } from '@angular/core';
   styleUrl: './toolbar.component.scss'
 })
 export class ToolbarComponent {
+  boardService = inject(BoardService);
 
+  constructor() { };
+
+  addCategory() {
+    this.boardService.addCategory();
+  }
 }

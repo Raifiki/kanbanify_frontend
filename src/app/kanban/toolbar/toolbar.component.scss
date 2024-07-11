@@ -14,6 +14,9 @@
         > input{
             width: 450px;
         }
+        > .btn-search{
+            mask-image: url('./../../../assets/icons/search.svg');
+        }
     }
     > .wrapper-toolbar-btn-right{
         display: flex;

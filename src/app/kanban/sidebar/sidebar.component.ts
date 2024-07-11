@@ -5,17 +5,20 @@ import { Board } from '../../../shared/utils/models';
 
 // import services
 import { BoardService } from '../../../services/board.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
   boardList: Signal<Board[]> = signal([]);
   selectedBoard: Signal<Board> = signal(new Board());
+
+  newBoardName: string = '';
 
   boardService = inject(BoardService);
 
@@ -28,6 +31,10 @@ export class SidebarComponent {
 
   selectBoard(board: Board) {
     this.boardService.selectBoard(board);
+  }
+
+  addBoard() {
+    this.boardService.addNewBoard(this.newBoardName);
   }
 
 }
