@@ -27,4 +27,8 @@ export class HeaderComponent {
     console.log(this.selectedBoard());
     this.router.navigate(['/register']);
   }
+
+  deleteBoard(){
+    this.boardService.deleteBoard(this.selectedBoard());
+  }
 }

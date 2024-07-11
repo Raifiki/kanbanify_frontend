@@ -34,7 +34,14 @@ export class SidebarComponent {
   }
 
   addBoard() {
-    this.boardService.addNewBoard(this.newBoardName);
+    if(this.isBoardNameValid(this.newBoardName) && this.newBoardName.length > 0) {
+      this.boardService.addNewBoard(this.newBoardName)
+      this.newBoardName = '';
+    };
+  }
+
+  isBoardNameValid(name: string) {
+    return this.boardList().filter(board => board.name === name).length === 0;
   }
 
 }

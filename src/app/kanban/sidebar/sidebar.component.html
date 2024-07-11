@@ -5,7 +5,7 @@
     </div>
     <div class="wrapper-sidebar-menu">
         <div class="wrapper-add-board ipt-field">
-            <input class="ipt" type="text" placeholder="new boardname" [(ngModel)]="newBoardName">
+            <input [class.invalid]="!isBoardNameValid(newBoardName)" type="text" placeholder="new boardname" [(ngModel)]="newBoardName">
             <button (click)="addBoard()" class="btn btn-icon btn-add-board"></button>
         </div>
         <div class="board-list">

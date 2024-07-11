@@ -75,7 +75,22 @@ export class BoardService {
     this.boardList.update( boardList => {
       boardList.push(newBoard);
       return boardList;
+    });
+    this.selectBoard(newBoard);
+  }
+
+  public deleteBoard(board:Board){
+    this.boardList.update( boardList => {
+      let idx = boardList.findIndex( b => b === board);
+      boardList.splice(idx, 1);
+      return boardList
     })
+    // ToDo: Delete Board on Server
+    if (this.boardList().length > 0) {
+      this.selectBoard(this.boardList()[0]);
+    } else {
+      this.selectBoard(new Board());
+    }
   }
 
   private getCategories(){

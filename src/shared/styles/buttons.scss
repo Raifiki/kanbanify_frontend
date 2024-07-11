@@ -45,6 +45,10 @@
         background-color: $prim-color-hover;
         transition: all $hover-trans-time ease-in-out;
     }
+    &.delete:hover{
+        background-color: $err-red;
+        transition: all $hover-trans-time ease-in-out;
+    }
 }
 
 .btn-tab{
