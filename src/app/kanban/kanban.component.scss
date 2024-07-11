@@ -25,9 +25,7 @@
             flex-grow: 2;
             padding: 32px;
             >app-toolbar{
-                height: 100px;
                 background-color: transparent;
-                background-color: rgba($color: orange, $alpha: 0.2); // delete
             }
             > app-board{
                 flex-grow: 2;

@@ -83,12 +83,12 @@
         aspect-ratio: 1;
         border-radius: 50%;
         background-color: $grey-middle;
-
+        border: 1px transparent solid;
         &:hover{
             border: 1px $acc-color solid;
         }
     }
     &:checked + label{
-        background-color: $acc-color;
+        border-color: $sec-color;
     }
 }

@@ -1,0 +1,30 @@
+@import './../../../shared/styles/include.scss';
+
+.wrapper-toolbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $grey-middle;
+    border-radius: 8px;
+    padding: 24px;
+    > .wrapper-search-field{
+        flex-direction: row;
+        align-items: center;
+        width: unset;
+        > input{
+            width: 450px;
+        }
+    }
+    > .wrapper-toolbar-btn-right{
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        background-color: transparent;
+        > .btn-add-member{
+            mask-image: url('./../../../assets/icons/add-user.svg');
+        }
+        > .btn-add-category{
+            mask-image: url('./../../../assets/icons/add-column.svg');
+        }
+    }
+}
