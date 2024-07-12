@@ -22,7 +22,7 @@ export class ToolbarComponent {
   }
 
   showOvlyAddUser() {
-    this.ctrlService.setOverlayType('addUser');
+    this.ctrlService.setOverlayType('addMember');
     this.ctrlService.setShowOverlay(true);
   }
 

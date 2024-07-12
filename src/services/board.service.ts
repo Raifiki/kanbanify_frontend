@@ -21,9 +21,37 @@ export class BoardService {
   constructor() {
         //delete at end start
         this.boardList.set([
-          this.getCleanBoardObj({name:'Board 1', emailList:['user1@example.com','user2@example.com']}),
-          this.getCleanBoardObj({name:'Board 2', emailList:['user3@example.com','user4@example.com']}),
-          this.getCleanBoardObj({name:'Board 3', emailList:['user5@example.com']}),
+          this.getCleanBoardObj({name:'Board 1', emailList:[
+            'user1@example.com',
+            'user2@example.com',
+            'user3@example.com',
+            'user4@example.com'
+          ]}),
+          this.getCleanBoardObj({name:'Board 2', emailList:[
+            'user5@example.com',
+            'user6@example.com',
+            'user7@example.com',
+            'user8@example.com',
+            'user9@example.com',
+            'user10@example.com',
+            'user11@example.com'
+          ]}),
+          this.getCleanBoardObj({name:'Board 3', emailList:[
+            'user12@example.com',
+            'user13@example.com',
+            'user14@example.com',
+            'user15@example.com',
+            'user16@example.com',
+            'user17@example.com',
+            'user18@example.com',
+            'user19@example.com',
+            'user20@example.com',
+            'user21@example.com',
+            'user22@example.com',
+            'user23@example.com',
+            'user24@example.com',
+            'user25@example.com'
+          ]}),
         ]);
         this.selectBoard(this.boardList()[0])
         setInterval(()=>{
@@ -107,10 +135,10 @@ export class BoardService {
       board.categories.splice(idx, 1);
       return board
     })
-    this.updateBoardOnServer();
+    this.updateBoardCategory();
   }
 
-  private updateBoardOnServer(){
+  private updateBoardCategory(){
     // todo update board + Category on server
   }
 
@@ -119,5 +147,13 @@ export class BoardService {
       board.categories.push(new Category('NewCategory'));
       return board
     })
+  }
+
+  public updateBoardMembers(memberList:User[]){
+    this.selectedBoard.update(board => {
+      board.members = memberList;
+      return board
+    })
+    // todo update board on server + users
   }
 }

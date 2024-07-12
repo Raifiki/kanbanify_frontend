@@ -1,1 +1,1 @@
-export type OverlayState = 'addUser' | 'addTask' | 'editTask';
+export type OverlayState = 'addMember' | 'addTask' | 'editTask';

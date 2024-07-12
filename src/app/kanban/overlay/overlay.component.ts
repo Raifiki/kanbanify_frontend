@@ -1,15 +1,19 @@
 import { Component, computed, inject, signal, Signal } from '@angular/core';
 
+// import components
+import { AddMemberComponent } from './add-member/add-member.component';
+
 // import types and interfaces
 import { OverlayState } from '../../../shared/utils/interfaces';
 
 // import services
 import { ControllService } from '../../../services/controll.service';
+import { TaskComponent } from "./task/task.component";
 
 @Component({
   selector: 'app-overlay',
   standalone: true,
-  imports: [],
+  imports: [AddMemberComponent, TaskComponent],
   templateUrl: './overlay.component.html',
   styleUrl: './overlay.component.scss'
 })

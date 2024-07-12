@@ -1,11 +1,12 @@
 import { Component, computed, inject, signal, Signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 // import models
 import { Board } from '../../../shared/utils/models';
 
 // import services
 import { BoardService } from '../../../services/board.service';
-import { FormsModule } from '@angular/forms';
+import { ControllService } from '../../../services/controll.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -21,6 +22,7 @@ export class SidebarComponent {
   newBoardName: string = '';
 
   boardService = inject(BoardService);
+  controllService = inject(ControllService);
 
   constructor() { 
     this.boardList = computed(()=>{return this.boardService.boardList()});
@@ -31,6 +33,7 @@ export class SidebarComponent {
 
   selectBoard(board: Board) {
     this.boardService.selectBoard(board);
+    this.controllService.initOverlay();
   }
 
   addBoard() {

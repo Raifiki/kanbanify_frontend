@@ -72,23 +72,40 @@
     }
 }
 
-.ipt-cb-userchip{
+.ipt-cb{
     display: none;
     ~ label{
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 42px;
-        aspect-ratio: 1;
-        border-radius: 50%;
-        background-color: $grey-middle;
         border: 1px transparent solid;
+        color: $txt-sec;
+        background-color: $grey-middle;
         &:hover{
+            transition: all $hover-trans-time ease-in-out;
             border: 1px $acc-color solid;
         }
     }
     &:checked + label{
-        border-color: $sec-color;
+        border-color: $sec-color-hover;
     }
 }
+
+.ipt-cb-label-userchip{
+    width: 42px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+}
+
+.ipt-cb-label-userselect{
+    padding: 12px 12px;
+    border-radius: 5px;
+    justify-content: flex-start !important;
+    &:hover{
+
+        transition: all $hover-trans-time ease-in-out;
+    }
+}
+
+

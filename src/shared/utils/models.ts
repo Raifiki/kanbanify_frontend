@@ -19,6 +19,7 @@ export class User{
     activeBoard:Board = new Board();
     initials:string = '';
     email:string = '';
+    boards:Board[] = [];
 
     constructor(userJson?:any){
         if (userJson) {
@@ -27,6 +28,7 @@ export class User{
             this.initials = this.getInitials();
             this.activeBoard = userJson.activeBoard || new Board();
             this.email = userJson.email || '';
+            this.boards = userJson.boards || [];
         }
     }
 
@@ -43,6 +45,15 @@ export class User{
         this.surename = newSurename;
         this.initials = this.getInitials();
     }
+
+    public addBoard(board:Board){
+        if(!this.boards.includes(board))this.boards.push(board);
+    }
+
+    public removeBoard(board:Board){
+        if(this.boards.includes(board))this.boards.splice(this.boards.indexOf(board), 1);
+    }
+
 }
 
 export class Category {

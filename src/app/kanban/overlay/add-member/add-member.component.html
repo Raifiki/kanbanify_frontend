@@ -1,0 +1,17 @@
+<div class="card-edit-board-member">
+    <h2>Board Member</h2>
+    <div class="wrapper-select-member">
+        <div class="ipt-field">
+            <input (keyup)="filterUserList()" type="text" [(ngModel)]="searchPrompt" placeholder="search for a member">
+        </div>
+        <div class="user-list">
+            @for (user of filteredUserList(); track user; let idx = $index) {
+                <div class="user-list-item">
+                    <input (click)="toggleUser(user)" class="ipt-cb" type="checkbox" name="" id="{{ 'member' + idx }}" [checked]="isUserMember(user)">
+                    <label  class="ipt-cb-label-userselect" for="{{ 'member' + idx }}">{{user.name + ' ' + user.surename}}</label>
+                </div>
+            }
+        </div>
+    </div>
+    <button (click)="updateMembers()" class="btn btn-prim">Update members</button>
+</div>

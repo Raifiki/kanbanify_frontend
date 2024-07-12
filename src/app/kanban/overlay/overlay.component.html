@@ -3,7 +3,12 @@
         <button (click)="toggleOverlay()" class="btn btn-icon" [class.ovly-closed]="!showOverlay()"></button>
     </div>
     <div class="ovly-content">
-        <p>{{overlayType()}}</p>
+        @switch (overlayType()) {
+            @case ('addMember'){<app-add-member></app-add-member>}
+            @case ('addTask'){<app-task></app-task>}
+            @case ('editTask'){<app-task></app-task>}
+            @default{<app-task></app-task>}
+        }
     </div>
 </div>
 
