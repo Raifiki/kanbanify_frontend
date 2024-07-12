@@ -57,10 +57,14 @@ export class AddMemberComponent {
   }
 
   updateMembers(){
-    if(this.controlService.selectedMembers.length > 0){
+    if(this.isMemberSelectionValid()){
       this.boardService.updateBoardMembers(this.controlService.selectedMembers);
       this.controlService.setShowOverlay(false);
     }
+  }
+
+  isMemberSelectionValid(){
+    return this.controlService.selectedMembers.length > 0;
   }
 
 }

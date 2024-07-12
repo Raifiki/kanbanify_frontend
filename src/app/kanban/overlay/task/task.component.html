@@ -1,1 +1,82 @@
-<p>task works!</p>
+<div (click)="closeDropdowns()" class="wrapper-task">
+    <h2>Create new task</h2>
+    <form (submit)="createTask(formTask)" #formTask="ngForm">
+        <div class="ipt-field">
+            <label for="title">Title</label>
+            <input type="text" [(ngModel)]="task().title" name="title" #title placeholder="Please enter a title" required>
+            <span>Please enter a title</span>
+        </div>
+
+        <div class="ipt-field wrapper-description">
+            <label for="description">Description</label>
+            <textarea [(ngModel)]="task().description" name="description" #description placeholder="Please enter a description"></textarea>
+        </div>
+        <div class="wrapper-ipt-field-group">
+            <div class="ipt-dropdown">
+                <span class="ipt-dd-label">Assigned to</span>
+                <div class="ipt-dd-selection">
+                    <span id="assignedTo">{{ (task().assignedTo.name.length>0)?task().assignedTo.name + ' ' + task().assignedTo.surename : 'Please select a member'}}</span>
+                    <button (click)="toggleDDAssignedTo($event)" class="btn btn-icon btn-dropdown" type="button"></button>
+                </div>
+                <div class ="dropdown-menu" [class.show]="showDDAssignedTo">
+                    @for (member of members(); track member; let idx = $index) {
+                        <div class="dropdown-item">
+                            <input (change)="selectMember(member); toggleDDAssignedTo($event)" class="ipt-cb" type="radio" name="assignedTo" id="{{'member' + idx}}">
+                            <label for="{{'member' + idx}}">{{member.name + ' ' + member.surename}}</label>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="ipt-field">
+                <label for="duedate">Due date</label>
+                <input type="date" id="duedate" ngModel name="datepicker" #duedate [(ngModel)]="task().dueDate" required>
+                <span>Please select a due date</span>
+            </div>
+        </div>
+        <div class="wrapper-ipt-field-group">
+            <div class="ipt-dropdown">
+                <span class="ipt-dd-label">Category</span>
+                <div class="ipt-dd-selection">
+                    <span id="category">{{ (task().category.name.length>0)?task().category.name : 'Please select a category'}}</span>
+                    <button (click)="toggleDDCategory($event)" class="btn btn-icon btn-dropdown" type="button"></button>
+                </div>
+                <div class ="dropdown-menu" [class.show]="showDDCategory">
+                    @for (category of categories(); track category; let idx = $index) {
+                        <div class="dropdown-item">
+                            <input (click)="toggleDDCategory($event)" (change)="selectCategory(category)" class="ipt-cb" type="radio" name="category" id="{{'category' + idx}}">
+                            <label for="{{'category' + idx}}">{{category.name}}</label>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="ipt-dropdown">
+                <span class="ipt-dd-label">Label</span>
+                <div class="ipt-dd-selection">
+                    <span id="label">{{ (task().label.name.length>0)?task().label.name : 'Please select a label'}}</span>
+                    <button (click)="toggleDDLabel($event)" class="btn btn-icon btn-dropdown" type="button"></button>
+                </div>
+                <div class ="dropdown-menu" [class.show]="showDDLabel">
+                    @for (label of labels(); track label; let idx = $index) {
+                        <div class="dropdown-item">
+                            <input (click)="toggleDDLabel($event)" (change)="selectLabel(label)" class="ipt-cb" type="radio" name="label" id="{{'label' + idx}}">
+                            <label for="{{'label' + idx}}">{{label.name}}</label>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="ipt-field ipt-radio-group">
+            <input type="radio" name="priority"  id="prioLow" value="low" [(ngModel)]="task().priority">
+            <label for="prioLow">low</label>
+            <input type="radio" name="priority"  id="prioMedium" value="medium" [(ngModel)]="task().priority">
+            <label for="prioMedium">medium</label>
+            <input type="radio" name="priority"  id="prioHigh" value="high" [(ngModel)]="task().priority">
+            <label for="prioHigh">high</label>
+        </div>
+        <div class="form-btn-group">
+            <button (click)="cancel(formTask)" class="btn btn-sec" type="button">Cancel</button>
+            <button class="btn btn-prim" [disabled]="formTask.invalid">Create task</button>
+        </div>
+    </form>
+
+</div>

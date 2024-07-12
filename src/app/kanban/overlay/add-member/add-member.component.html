@@ -1,5 +1,5 @@
 <div class="card-edit-board-member">
-    <h2>Board Member</h2>
+    <h2>Members</h2>
     <div class="wrapper-select-member">
         <div class="ipt-field">
             <input (keyup)="filterUserList()" type="text" [(ngModel)]="searchPrompt" placeholder="search for a member">
@@ -13,5 +13,5 @@
             }
         </div>
     </div>
-    <button (click)="updateMembers()" class="btn btn-prim">Update members</button>
+    <button (click)="updateMembers()" [disabled]="!isMemberSelectionValid()" class="btn btn-prim">Update members</button>
 </div>

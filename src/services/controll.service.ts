@@ -4,7 +4,7 @@ import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { OverlayState } from '../shared/utils/interfaces';
 
 // import models
-import { User } from '../shared/utils/models';
+import { Task, User } from '../shared/utils/models';
 
 // import services
 import { BoardService } from './board.service';
@@ -20,6 +20,7 @@ export class ControllService {
   boardService = inject(BoardService);
 
   selectedMembers: User[] = [];
+  selectedTask: WritableSignal<Task> = signal(new Task());
 
   constructor() { 
     this.initOverlay();
@@ -47,8 +48,8 @@ export class ControllService {
 
   public initOverlay(){
     this.deepCopyBoardMemberList();
-    this.setOverlayType('addMember');
-    this.setShowOverlay(true);
+    this.selectedTask.set(new Task());
+    this.setOverlayType('addTask');
+    this.setShowOverlay(false);
   }
-
 }

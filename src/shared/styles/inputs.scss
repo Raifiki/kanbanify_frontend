@@ -4,7 +4,7 @@
     gap: 8px;
     background-color: transparent;
     width: 100%;
-    > input{
+    > input, textarea{
         background-color: $grey-light;
         border: none;
         outline: none;
@@ -21,6 +21,10 @@
             border-color: $acc-color !important;
             transition: all $hover-trans-time ease-in-out;
         }
+    }
+    > textarea{
+        resize: none;
+        //todo add font family
     }
     > label{
         background-color: transparent;
@@ -57,6 +61,8 @@
         padding: 10px 12px;
         border-radius: 5px;
         background-color: $grey-hover;
+        flex-grow: 1;
+        text-align: center;
         &:hover{
             background-color: $acc-color !important;
             color: $txt-dark;
@@ -99,12 +105,68 @@
 }
 
 .ipt-cb-label-userselect{
-    padding: 12px 12px;
+    padding: 24px 32px;
     border-radius: 5px;
     justify-content: flex-start !important;
-    &:hover{
+}
 
-        transition: all $hover-trans-time ease-in-out;
+
+.ipt-dropdown{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    > .ipt-dd-label{
+        color: $txt-sec;
+
+    }
+    > .ipt-dd-selection{
+        position: relative;
+        display: flex;
+        align-items: center;
+        > span{
+            flex-grow: 2;
+            background-color: $grey-light;
+            color: $txt-sec;
+            padding: 12px 12px;
+            border-radius: 5px;
+            border-bottom: 1px transparent solid;
+            font-size: 16px;
+            padding-right: 32px;
+        }
+        > button{
+            position: absolute;
+            right: 8px;
+            mask-image: url('./../../assets/icons/dropdown.svg');
+            width: 24px;
+        }
+    }
+    > .dropdown-menu{
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: $grey-light;
+        border-radius: 5px;
+        padding: 8px;
+        display: none;
+        flex-direction: column;
+        gap: 8px;
+        max-height: 150px;
+        overflow: auto;
+        z-index: 5;
+        > .dropdown-item{
+            background-color: transparent;
+            > label{
+                padding: 8px 12px;
+                background-color: $grey-light;
+                border-radius: 5px;
+                justify-content: flex-start;
+            }
+        }
+        &.show{
+            display: flex;
+        }
     }
 }
 

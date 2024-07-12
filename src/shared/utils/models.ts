@@ -65,3 +65,46 @@ export class Category {
         this.notUpdatedOnSercer = !snyWithServer || false;
     }
 }
+
+export class Label{
+    name:string = '';
+    color:string = '';
+
+    constructor(name?:string, color?:string){
+        this.name = name || '';
+        this.color = color || '';
+    }
+}
+
+export class Task{
+    title:string = '';
+    description:string = '';
+
+    assignedTo:User = new User();
+    dueDate:    Date | undefined = undefined;
+
+    category:Category = new Category('');
+    label:Label = new Label();
+
+    priority:'low'|'medium'|'high' = 'medium';
+
+    createdAt:Date = new Date();
+    createdFrom:User = new User();
+    board:Board = new Board();
+
+
+    constructor(taskJson?:any){
+        if (taskJson) {
+            this.title = taskJson.title || '';
+            this.description = taskJson.description || '';
+            this.category = taskJson.category || new Category('');
+            this.board = taskJson.board || new Board();
+            this.assignedTo = taskJson.assignedTo || new User();
+            this.createdFrom = taskJson.createdFrom || new User();
+            this.createdAt = new Date();
+            this.dueDate = taskJson.dueDate || undefined;
+            this.label = taskJson.label || new Label();
+            this.priority = taskJson.priority || 'medium';
+        }
+    }
+}

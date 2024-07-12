@@ -26,4 +26,9 @@ export class ToolbarComponent {
     this.ctrlService.setShowOverlay(true);
   }
 
+  showOvlyAddTask(){
+    this.ctrlService.setOverlayType('addTask');
+    this.ctrlService.setShowOverlay(true);
+  }
+
 }
