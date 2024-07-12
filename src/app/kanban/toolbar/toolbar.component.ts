@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 
 // import services
 import { BoardService } from '../../../services/board.service';
+import { ControllService } from '../../../services/controll.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -12,10 +13,17 @@ import { BoardService } from '../../../services/board.service';
 })
 export class ToolbarComponent {
   boardService = inject(BoardService);
+  ctrlService = inject(ControllService);
 
   constructor() { };
 
   addCategory() {
     this.boardService.addCategory();
   }
+
+  showOvlyAddUser() {
+    this.ctrlService.setOverlayType('addUser');
+    this.ctrlService.setShowOverlay(true);
+  }
+
 }

@@ -1,0 +1,1 @@
+export type OverlayState = 'addUser' | 'addTask' | 'editTask';

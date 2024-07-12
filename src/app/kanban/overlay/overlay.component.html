@@ -1,0 +1,10 @@
+<div class="wrapper-overlay">
+    <div class="wrapper-ovly-control">
+        <button (click)="toggleOverlay()" class="btn btn-icon" [class.ovly-closed]="!showOverlay()"></button>
+    </div>
+    <div class="ovly-content">
+        <p>{{overlayType()}}</p>
+    </div>
+</div>
+
+

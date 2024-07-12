@@ -1,0 +1,29 @@
+@import './../../../shared/styles/include.scss';
+
+.wrapper-overlay{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    background-color: transparent;
+    > .wrapper-ovly-control{
+        cursor: pointer;
+        background-color: $grey-dark;
+        border: 1px $grey-hover solid;
+        border-right: none;
+        padding: 24px 0;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        > button{
+            mask-image: url('./../../../assets/icons/line-arrow-left.svg');
+            width: 24px;
+            transform: rotate(180deg);
+        }
+        > .ovly-closed{
+            transform: unset;
+        }
+    }
+    > .ovly-content{
+        flex-grow: 2;
+        height: 100%;
+    }
+}
