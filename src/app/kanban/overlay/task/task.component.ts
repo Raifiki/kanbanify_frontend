@@ -7,6 +7,8 @@ import { Category, Label, Task, User } from '../../../../shared/utils/models';
 //import services
 import { BoardService } from '../../../../services/board.service';
 import { ControllService } from '../../../../services/controll.service';
+import { LabelService } from '../../../../services/label.service';
+import { CategoryService } from '../../../../services/category.service';
 
 @Component({
   selector: 'app-task',
@@ -18,6 +20,8 @@ import { ControllService } from '../../../../services/controll.service';
 export class TaskComponent {
   task: Signal<Task> = signal(new Task());
 
+  categoryService = inject(CategoryService);
+  labelService = inject(LabelService);
   boardService = inject(BoardService);
   controlService = inject(ControllService);
 
@@ -32,7 +36,8 @@ export class TaskComponent {
   constructor() {
     this.members = computed(()=>{return this.boardService.selectedBoard().members;});
     this.task = computed(() => {return this.controlService.selectedTask();});
-    this.categories = computed(() => {return this.boardService.selectedBoard().categories;});
+    this.categories = computed(() => {return this.categoryService.categories();});
+    this.labels = computed(() => {return this.labelService.labels();});
    }
 
   createTask(form:NgForm) {

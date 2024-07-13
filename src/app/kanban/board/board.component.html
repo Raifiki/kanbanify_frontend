@@ -1,5 +1,5 @@
 <div class="board">
-    @for (category of board().categories; track $index) {
+    @for (category of categories(); track $index) {
         <div class="wrapper-category">
             <div class="category-header">
                 <input (focus)="category.notUpdatedOnSercer = true" type="text" [(ngModel)]="category.name" [class.show-unsaved-changes]="category.notUpdatedOnSercer">

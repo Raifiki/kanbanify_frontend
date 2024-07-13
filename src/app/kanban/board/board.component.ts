@@ -1,11 +1,12 @@
 import { Component, computed, inject, signal, Signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 // import services
 import { BoardService } from '../../../services/board.service';
+import { CategoryService } from '../../../services/category.service';
 
 // import models
 import { Board, Category } from '../../../shared/utils/models';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-board',
@@ -18,13 +19,19 @@ import { FormsModule } from '@angular/forms';
 })
 export class BoardComponent {
   board:Signal<Board> = signal(new Board());
+  categories:Signal<Category[]> = signal([]);
 
   boardService = inject(BoardService);
+  categoryService = inject(CategoryService);
 
   constructor(){
     this.board = computed(()=>{
       let board = this.boardService.selectedBoard();
       return board});
+
+    this.categories = computed(()=>{
+      let categories = this.categoryService.categories();
+      return categories});
   }
 
   changeCategoryName(category: Category){
@@ -36,11 +43,11 @@ export class BoardComponent {
 
 
   deleteCategory(category:Category){
-    this.boardService.deleteCategory(category);
+    this.categoryService.deleteCategory(category);
   }
 
   isCategoryNameValid(name: string){
-    return this.board().categories.filter(category => category.name === name).length === 1 && name !== 'NewCategory';
+    return this.categories().filter(category => category.name === name).length === 1 && name !== 'NewCategory';
   }
 
 }

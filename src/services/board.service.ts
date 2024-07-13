@@ -2,10 +2,13 @@ import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { timeInterval } from 'rxjs';
 
 // import models
-import { Board, Category, User } from '../shared/utils/models';
+import { Board, User } from '../shared/utils/models';
 
 // impomrt services
 import { UserService } from './user.service';
+import { LabelService } from './label.service';
+import { TaskService } from './task.service';
+import { CategoryService } from './category.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,18 +19,21 @@ export class BoardService {
 
   public categoryList: WritableSignal<string[]> = signal([]);
 
+  private categoryService = inject(CategoryService);
+  private labelService = inject(LabelService);
   private userService = inject(UserService);
+  private taskService = inject(TaskService);
 
   constructor() {
         //delete at end start
         this.boardList.set([
-          this.getCleanBoardObj({name:'Board 1', emailList:[
+          this.getCleanBoardObj({name:'Board 1',id:'ABC', emailList:[
             'user1@example.com',
             'user2@example.com',
             'user3@example.com',
             'user4@example.com'
           ]}),
-          this.getCleanBoardObj({name:'Board 2', emailList:[
+          this.getCleanBoardObj({name:'Board 2',id:'CDE', emailList:[
             'user5@example.com',
             'user6@example.com',
             'user7@example.com',
@@ -36,7 +42,7 @@ export class BoardService {
             'user10@example.com',
             'user11@example.com'
           ]}),
-          this.getCleanBoardObj({name:'Board 3', emailList:[
+          this.getCleanBoardObj({name:'Board 3',id:'EFG', emailList:[
             'user12@example.com',
             'user13@example.com',
             'user14@example.com',
@@ -64,10 +70,7 @@ export class BoardService {
           } else if(false) {
             this.selectedBoard.update(board => {
               board.name = 'Changed';
-              board.categories[0].name = 'Changed';
               let temp = board.categories[0];
-              board.categories[0] = board.categories[1];
-              board.categories[1] = temp;
               return board
             })
           }
@@ -77,6 +80,9 @@ export class BoardService {
 
   selectBoard(board: Board) {
     this.selectedBoard.set(board);
+    this.labelService.getLabels(this.selectedBoard());
+    this.categoryService.getCategories(this.selectedBoard());
+    this.taskService.getTasks(this.selectedBoard());
   }
 
   private getCleanBoardObj(obj:any){
@@ -123,31 +129,17 @@ export class BoardService {
 
   private getCategories(){
     return [
-      new Category('ToDo', true),
-      new Category('In Progress',true),
-      new Category('Done',true),
+      'ToDo', 
+      'In Progress',
+      'Done',
     ];
   }
 
-  public deleteCategory(category:Category) {
-    this.selectedBoard.update(board => {
-      let idx = board.categories.findIndex( cat => cat === category);
-      board.categories.splice(idx, 1);
-      return board
-    })
-    this.updateBoardCategory();
-  }
 
   private updateBoardCategory(){
     // todo update board + Category on server
   }
 
-  public addCategory(){
-    this.selectedBoard.update(board => {
-      board.categories.push(new Category('NewCategory'));
-      return board
-    })
-  }
 
   public updateBoardMembers(memberList:User[]){
     this.selectedBoard.update(board => {
@@ -155,5 +147,9 @@ export class BoardService {
       return board
     })
     // todo update board on server + users
+  }
+
+  public getBoard(boardId:string):Board | undefined{
+    return this.boardList().find(board => board.id === boardId);
   }
 }

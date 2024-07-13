@@ -20,7 +20,10 @@ export class HeaderComponent {
   selectedBoard: Signal<Board> = signal(new Board());
 
   constructor(private router:Router){
-    this.selectedBoard = computed(()=>this.boardService.selectedBoard());
+    this.selectedBoard = computed(()=>{
+      console.log('test2');
+      
+      return this.boardService.selectedBoard()});
   }
 
   logout(){

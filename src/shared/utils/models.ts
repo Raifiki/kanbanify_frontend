@@ -1,13 +1,15 @@
 export class Board{
     name:string = '';
     members: User[] = [];
-    categories: Category[] = [];
+    categories: string[] = [];
+    id:string = '';
 
     constructor(boardJson?:any){
         if (boardJson) {
             this.name = boardJson.name || '';
             this.members = boardJson.members || [];
             this.categories = boardJson.categories || [];
+            this.id = boardJson.id || '';
         }
     }
 }

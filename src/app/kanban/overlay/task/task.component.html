@@ -59,7 +59,10 @@
                     @for (label of labels(); track label; let idx = $index) {
                         <div class="dropdown-item">
                             <input (click)="toggleDDLabel($event)" (change)="selectLabel(label)" class="ipt-cb" type="radio" name="label" id="{{'label' + idx}}">
-                            <label for="{{'label' + idx}}">{{label.name}}</label>
+                            <label for="{{'label' + idx}}">
+                                <span>{{label.name}}</span>
+                                <div class="label-color" [style]="{'background-color': label.color}"></div>
+                            </label>
                         </div>
                     }
                 </div>

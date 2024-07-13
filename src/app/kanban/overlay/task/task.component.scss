@@ -24,6 +24,19 @@
             > div{
                 width: 50%;
             }
+            label {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                > span {
+                    background-color: transparent;
+                }
+                >.label-color{
+                    width: 12px;
+                    aspect-ratio: 1;
+                    border-radius: 50%;
+                }
+            }
         }
         >.form-btn-group{
             align-self: flex-end;

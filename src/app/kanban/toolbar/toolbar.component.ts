@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 // import services
 import { BoardService } from '../../../services/board.service';
 import { ControllService } from '../../../services/controll.service';
+import { CategoryService } from '../../../services/category.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -12,13 +13,14 @@ import { ControllService } from '../../../services/controll.service';
   styleUrl: './toolbar.component.scss'
 })
 export class ToolbarComponent {
-  boardService = inject(BoardService);
+  categoryService = inject(CategoryService);
   ctrlService = inject(ControllService);
+  boardService = inject(BoardService);
 
   constructor() { };
 
   addCategory() {
-    this.boardService.addCategory();
+    this.categoryService.addCategory();
   }
 
   showOvlyAddUser() {
