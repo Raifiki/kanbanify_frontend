@@ -18,6 +18,7 @@ import { CategoryService } from '../../../../services/category.service';
   styleUrl: './task.component.scss'
 })
 export class TaskComponent {
+  @Input() taskOverlayType!: 'create' | 'edit';
   task: Signal<Task> = signal(new Task());
 
   categoryService = inject(CategoryService);
@@ -41,10 +42,14 @@ export class TaskComponent {
    }
 
   createTask(form:NgForm) {
-    console.log('test');
-    
-    console.log(this.task());
-    // ad mssing information to new Task
+    if (this.taskOverlayType == 'create') {
+      console.log('test');
+      
+      console.log(this.task());
+      // ad mssing information to new Task
+    } else {
+      
+    }
   }
 
   selectMember(member:User){

@@ -5,8 +5,8 @@
     <div class="ovly-content">
         @switch (overlayType()) {
             @case ('addMember'){<app-add-member></app-add-member>}
-            @case ('addTask'){<app-task></app-task>}
-            @case ('editTask'){<app-task></app-task>}
+            @case ('addTask'){<app-task [taskOverlayType]="'create'"></app-task>}
+            @case ('editTask'){<app-task [taskOverlayType]="'edit'"></app-task>}
             @default{<app-task></app-task>}
         }
     </div>

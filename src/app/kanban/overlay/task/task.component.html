@@ -78,7 +78,11 @@
         </div>
         <div class="form-btn-group">
             <button (click)="cancel(formTask)" class="btn btn-sec" type="button">Cancel</button>
-            <button class="btn btn-prim" [disabled]="formTask.invalid">Create task</button>
+            @if(taskOverlayType == 'create'){
+                <button class="btn btn-prim" [disabled]="formTask.invalid">Create task</button>
+            } @else{
+                <button class="btn btn-prim" [disabled]="formTask.invalid">Save task</button>
+            }
         </div>
     </form>
 

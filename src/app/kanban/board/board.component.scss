@@ -9,10 +9,21 @@
         flex-direction: column;
         gap: 8px;
         flex-grow: 2;
+        flex: 1;
         background-color: $grey-middle;
         border-radius: 8px;
         padding: 8px;
-
+        >.tasklist{
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            background-color: transparent;
+            border-radius: 8px;
+            padding: 8px;
+            overflow-y: auto;
+            flex-grow: 2;
+            height: 500px;
+        }
     }
 }
 

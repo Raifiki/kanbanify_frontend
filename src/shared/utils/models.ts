@@ -80,16 +80,16 @@ export class Label{
 
 export class Task{
     title:string = '';
+    label:Label = new Label();
     description:string = '';
 
     assignedTo:User = new User();
     dueDate:    Date | undefined = undefined;
 
-    category:Category = new Category('');
-    label:Label = new Label();
-
+    
     priority:'low'|'medium'|'high' = 'medium';
-
+    
+    category:Category = new Category('');
     createdAt:Date = new Date();
     createdFrom:User = new User();
     board:Board = new Board();

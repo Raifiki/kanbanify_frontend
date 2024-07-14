@@ -10,9 +10,9 @@
                 }
             </div>
             <div class="tasklist">
-                <div>task1</div>
-                <div>task2</div>
-                <div>task3</div>
+                @for (task of getTasksByCategory(category); track task) {
+                    <app-task-card [task]="task"></app-task-card>
+                }
             </div>
         </div>
     }
