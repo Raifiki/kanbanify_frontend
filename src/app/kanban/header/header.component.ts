@@ -21,11 +21,15 @@ export class HeaderComponent {
 
   selectedBoard: Signal<Board> = signal(new Board());
 
-  userSearchList: User[] = [];
+  userSearchList: Signal<User[]> = signal([]);
 
   constructor(private router:Router){
     this.selectedBoard = computed(()=>{
       return this.boardService.selectedBoard()});
+
+    this.userSearchList = computed(()=>{
+      return this.ctrlService.userTaskSearch()});
+    
   }
 
   logout(){
@@ -38,11 +42,11 @@ export class HeaderComponent {
   }
 
   toggleUserAtSearchList(user:User){
-    if(!this.userSearchList.includes(user)){
-      this.userSearchList.push(user);
+    if(!this.userSearchList().includes(user)){
+      this.userSearchList().push(user);
     } else{
-      this.userSearchList.splice(this.userSearchList.indexOf(user), 1);
+      this.userSearchList().splice(this.userSearchList().indexOf(user), 1);
     }
-    this.ctrlService.userTaskSearch.set(this.userSearchList);
+    this.ctrlService.userTaskSearch.set(this.userSearchList());
   }
 }
