@@ -25,7 +25,7 @@ export class TaskService {
   public getTasks(board:Board){
     if (board.name == 'Board 1') {
       this.taskList.set([
-        this.getCleanTaskObj({ title: 'API fertig machen', description: 'EndPoint Definieren und Authentifizierung anpassen', category: 'ToDo', boardId: 'ABC', assignedTo: 'user1@example.com', createdFrom: 'user2@example.com', createdAt: '2024-08-12', dueDate: '2024-09-28', label: 'Backend1', priority: 'high' }),
+        this.getCleanTaskObj({ title: 'API fertig machen. Eine Karrte mit sehr langem Titel', description: 'EndPoint Definieren und Authentifizierung anpassen', category: 'ToDo', boardId: 'ABC', assignedTo: 'user1@example.com', createdFrom: 'user2@example.com', createdAt: '2024-08-12', dueDate: '2024-09-28', label: 'Backend1', priority: 'high' }),
         this.getCleanTaskObj({ title: 'Design fertig machen', description: 'EndPoint Definieren und Authentifizierung anpassen. Ich habe eine sehr lange Beschreibung die über 2 Zeilen gehen sollte und irgendwann abgeschnitten wird.', category: 'In Progress', boardId: 'ABC', assignedTo: 'user1@example.com', createdFrom: 'user2@example.com', createdAt: '2024-06-12', dueDate: '2024-06-28', label: 'Frontend1', priority: 'medium' }),
         this.getCleanTaskObj({ title: 'GUI fertig machen', description: 'EndPoint Definieren und Authentifizierung anpassen', category: 'Done', boardId: 'ABC', assignedTo: 'user2@example.com', createdFrom: 'user1@example.com', createdAt: '2024-08-12', dueDate: '2024-09-28', label: 'Backend1', priority: 'low' }),
         this.getCleanTaskObj({ title: 'Customer Fragen klären', description: 'EndPoint Definieren und Authentifizierung anpassen', category: 'ToDo', boardId: 'ABC', assignedTo: 'user1@example.com', createdFrom: 'user2@example.com', createdAt: '2024-06-12', dueDate: '2024-06-28', label: 'Frontend1', priority: 'medium' }),
@@ -35,20 +35,20 @@ export class TaskService {
         this.getCleanTaskObj({ title: 'API fertig machen', description: 'EndPoint Definieren und Authentifizierung anpassen', category: 'Done', boardId: 'ABC', assignedTo: 'user2@example.com', createdFrom: 'user2@example.com', createdAt: '2024-08-12', dueDate: '2024-09-28', label: 'Frontend1', priority: 'low' }),
         this.getCleanTaskObj({ title: 'API fertig machen', description: 'EndPoint Definieren und Authentifizierung anpassen', category: 'In Progress', boardId: 'ABC', assignedTo: 'user1@example.com', createdFrom: 'user2@example.com', createdAt: '2024-06-12', dueDate: '2024-06-28', label: 'Backend1', priority: 'high' }),
         this.getCleanTaskObj({ title: 'API fertig machen', description: 'EndPoint Definieren und Authentifizierung anpassen', category: 'ToDo', boardId: 'ABC', assignedTo: 'user1@example.com', createdFrom: 'user1@example.com', createdAt: '2024-08-12', dueDate: '2024-06-28', label: 'Backend1', priority: 'medium' }),
-      ]);
-      console.log(this.taskList());
-      
+      ]);      
     } else {
       this.taskList.set([]);
     }
   }
 
-  public addTask(newTask: Task) {
-
+  public createTask(newTask: Task) {
+    this.taskList.update((tasks) => [...tasks, new Task(newTask)]);
+    // ToDo upload in Server
   }
 
   public removeTask(task: Task) {
-
+    this.taskList.update((tasks) => tasks.filter((t) => t !== task));
+    // ToDo upload in Server
   }
 
   private getCleanTaskObj(obj:any){
@@ -64,7 +64,6 @@ export class TaskService {
       label: this.labelService.getLabel(obj.label),
       priority: obj.priority
     }
-    console.log(this.categoryService.categories());
     return new Task(taskJson);
   }
 

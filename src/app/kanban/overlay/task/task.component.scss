@@ -4,8 +4,17 @@
     gap: 32px;
     height: 100%;
     min-width: 500px;
-    > h2{
-        font-size: 32px;
+    > .wrapper-header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        > h2{
+            font-size: 32px;
+        }
+        > .delete{
+            width: 24px;
+            mask-image: url('./../../../../assets/icons/delete.svg');
+        }
     }
     > form{
         display: flex;
@@ -39,9 +48,10 @@
             }
         }
         >.form-btn-group{
-            align-self: flex-end;
             display: flex;
+            justify-content: flex-end;
             gap: 16px;
+            width: 100%;
         }
     }
 }

@@ -29,7 +29,7 @@ export class TaskCardComponent {
     // nochmal überabeiten
     this.controlService.setOverlayType('editTask');
     this.controlService.setShowOverlay(true);
-    this.controlService.selectedTask.set(this.task);
+    this.controlService.setSelectedTask(this.task);
     // ToDo edit task mit deep Copy machen
   }
 

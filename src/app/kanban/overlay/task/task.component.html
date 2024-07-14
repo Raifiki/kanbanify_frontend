@@ -1,8 +1,15 @@
 <div (click)="closeDropdowns()" class="wrapper-task">
-    <h2>Create new task</h2>
+    <div class="wrapper-header">
+        @if (taskOverlayType == 'create'){
+            <h2>Create new task</h2>
+        } @else {
+            <h2>Edit task</h2>
+            <button class="btn btn-icon delete" (click)="removeTask()"></button>
+        }
+    </div>
     <form (submit)="createTask(formTask)" #formTask="ngForm">
         <div class="ipt-field">
-            <label for="title">Title</label>
+            <label for="title">Title*</label>
             <input type="text" [(ngModel)]="task().title" name="title" #title placeholder="Please enter a title" required>
             <span>Please enter a title</span>
         </div>
@@ -28,7 +35,7 @@
                 </div>
             </div>
             <div class="ipt-field">
-                <label for="duedate">Due date</label>
+                <label for="duedate">Due date*</label>
                 <input type="date" id="duedate" ngModel name="datepicker" #duedate [(ngModel)]="task().dueDate" required>
                 <span>Please select a due date</span>
             </div>

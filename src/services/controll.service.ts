@@ -8,6 +8,7 @@ import { Task, User } from '../shared/utils/models';
 
 // import services
 import { BoardService } from './board.service';
+import { CategoryService } from './category.service';
 
 
 @Injectable({
@@ -18,6 +19,7 @@ export class ControllService {
   showOverlay: WritableSignal<boolean> = signal(false);
 
   boardService = inject(BoardService);
+  categoryService = inject(CategoryService);
 
   selectedMembers: User[] = [];
   selectedTask: WritableSignal<Task> = signal(new Task());
@@ -46,10 +48,14 @@ export class ControllService {
     this.boardService.selectedBoard().members.forEach(member => this.selectedMembers.push(member))
   }
 
+  public setSelectedTask(task: Task){
+    this.selectedTask.set(task);
+  }
+
   public initOverlay(){
     this.deepCopyBoardMemberList();
-    this.selectedTask.set(new Task());
     this.setOverlayType('addTask');
     this.setShowOverlay(false);
+    this.setSelectedTask(new Task({category: this.categoryService.categories()[0]}));
   }
 }

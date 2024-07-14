@@ -9,6 +9,8 @@ import { BoardService } from '../../../../services/board.service';
 import { ControllService } from '../../../../services/controll.service';
 import { LabelService } from '../../../../services/label.service';
 import { CategoryService } from '../../../../services/category.service';
+import { TaskService } from '../../../../services/task.service';
+import { UserService } from '../../../../services/user.service';
 
 @Component({
   selector: 'app-task',
@@ -25,6 +27,8 @@ export class TaskComponent {
   labelService = inject(LabelService);
   boardService = inject(BoardService);
   controlService = inject(ControllService);
+  taskService = inject(TaskService);
+  userService = inject(UserService);
 
   members:Signal<User[]> = signal([]);
   categories: Signal<Category[]> = signal([]);
@@ -36,20 +40,41 @@ export class TaskComponent {
 
   constructor() {
     this.members = computed(()=>{return this.boardService.selectedBoard().members;});
-    this.task = computed(() => {return this.controlService.selectedTask();});
+    this.task = computed(() => {
+      let task = new Task({category: this.categoryService.categories()[0]});
+      if (this.taskOverlayType == 'edit') {
+        task = new Task(this.controlService.selectedTask());
+      }
+      return task;
+    });
     this.categories = computed(() => {return this.categoryService.categories();});
     this.labels = computed(() => {return this.labelService.labels();});
-   }
-
+  }
+  
   createTask(form:NgForm) {
+    console.log('Moin',this.task());
     if (this.taskOverlayType == 'create') {
-      console.log('test');
-      
-      console.log(this.task());
-      // ad mssing information to new Task
+      this.addMissingTaskDetails();
+      this.taskService.createTask(this.task());
     } else {
-      
+      let selTaskObj = this.controlService.selectedTask();
+      selTaskObj =Object.assign( selTaskObj,this.task());
     }
+    form.reset();
+    this.controlService.initOverlay();
+    this.controlService.setSelectedTask(new Task());
+    
+  }
+
+  removeTask(){
+    this.taskService.removeTask(this.controlService.selectedTask());
+    this.controlService.initOverlay();
+  }
+
+  private addMissingTaskDetails(){
+    this.task().board = this.boardService.selectedBoard();
+    this.task().createdFrom = this.userService.signedInUser();
+    this.task().createdAt = new Date();
   }
 
   selectMember(member:User){

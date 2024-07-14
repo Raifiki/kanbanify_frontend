@@ -10,12 +10,21 @@
     background-color: $grey-light;
     * {
         background-color: transparent;
+        color: $txt-sec;
     }
     > .task-card-header{
         display: flex;
         justify-content: space-between;
         gap: 24px;
         align-items: center;
+        max-width: 350px;
+        > h2{
+            font-size: 24px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: $txt-prim;
+        }
         > span{
             padding: 4px 8px;
             border-radius: 5px;

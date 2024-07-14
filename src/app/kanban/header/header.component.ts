@@ -21,8 +21,6 @@ export class HeaderComponent {
 
   constructor(private router:Router){
     this.selectedBoard = computed(()=>{
-      console.log('test2');
-      
       return this.boardService.selectedBoard()});
   }
 
