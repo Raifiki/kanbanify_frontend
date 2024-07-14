@@ -60,7 +60,5 @@ export class ControllService {
     this.setOverlayType('addTask');
     this.setShowOverlay(false);
     this.setSelectedTask(new Task({category: this.categoryService.categories()[0]}));
-    this.searchPrompt.set('');
-    this.userTaskSearch.set([]);
   }
 }

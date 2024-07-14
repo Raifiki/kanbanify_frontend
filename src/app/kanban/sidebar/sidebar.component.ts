@@ -34,6 +34,8 @@ export class SidebarComponent {
   selectBoard(board: Board) {
     this.boardService.selectBoard(board);
     this.controllService.initOverlay();
+    this.controllService.searchPrompt.set('');
+    this.controllService.userTaskSearch.set([]);
   }
 
   addBoard() {
