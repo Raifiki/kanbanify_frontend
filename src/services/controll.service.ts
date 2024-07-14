@@ -24,6 +24,9 @@ export class ControllService {
   selectedMembers: User[] = [];
   selectedTask: WritableSignal<Task> = signal(new Task());
 
+  searchPrompt: WritableSignal<string> = signal('');
+  userTaskSearch: WritableSignal<User[]> = signal([]);
+
   constructor() { 
     this.initOverlay();
   }
@@ -57,5 +60,7 @@ export class ControllService {
     this.setOverlayType('addTask');
     this.setShowOverlay(false);
     this.setSelectedTask(new Task({category: this.categoryService.categories()[0]}));
+    this.searchPrompt.set('');
+    this.userTaskSearch.set([]);
   }
 }

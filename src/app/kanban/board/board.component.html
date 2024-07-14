@@ -10,7 +10,7 @@
                 }
             </div>
             <div class="tasklist">
-                @for (task of getTasksByCategory(category); track task) {
+                @for (task of filterTask(category); track task) {
                     <app-task-card [task]="task"></app-task-card>
                 }
             </div>

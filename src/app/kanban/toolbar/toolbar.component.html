@@ -1,8 +1,8 @@
 <div class="wrapper-toolbar">
     <button (click)="showOvlyAddTask()" class="btn btn-prim">New task</button>
     <div class="ipt-field wrapper-search-field">
-        <input class="ipt" type="email" placeholder="search for a task" #txt>
-        <button class="btn btn-icon btn-search"></button>
+        <input (keyup)="setSearchPrompt(txt.value)" class="ipt" type="email" placeholder="search for a task title" #txt>
+        <button (click)="setSearchPrompt(txt.value)" class="btn btn-icon btn-search"></button>
     </div>
     <div class="wrapper-toolbar-btn-right">
         <button (click)="showOvlyAddUser()" class="btn btn-icon btn-add-member"></button>

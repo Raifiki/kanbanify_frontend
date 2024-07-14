@@ -7,7 +7,7 @@
         <div class="header-user-list">
             @for (user of selectedBoard().members; track user; let idx=$index) {
                 <div>
-                    <input class="ipt-cb" type="checkbox" name="" id="{{ 'user' + idx}}">
+                    <input (click)="toggleUserAtSearchList(user)" class="ipt-cb" type="checkbox" name="" id="{{ 'user' + idx}}">
                     <label class="ipt-cb-label-userchip" for="{{ 'user' + idx}}">{{ user.initials }}</label>
                     <span>{{ user.name + ' ' + user.surename }}</span>
                 </div>

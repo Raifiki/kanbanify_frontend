@@ -33,4 +33,8 @@ export class ToolbarComponent {
     this.ctrlService.setShowOverlay(true);
   }
 
+  setSearchPrompt(prompt: string) {
+    this.ctrlService.searchPrompt.set(prompt.toLowerCase());
+  }
+
 }

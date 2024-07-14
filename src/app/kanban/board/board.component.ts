@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 // import services
 import { BoardService } from '../../../services/board.service';
 import { CategoryService } from '../../../services/category.service';
+import { ControllService } from '../../../services/controll.service';
+import { TaskService } from '../../../services/task.service';
 
 // import models
-import { Board, Category, Task } from '../../../shared/utils/models';
-import { TaskService } from '../../../services/task.service';
+import { Board, Category, Task, User } from '../../../shared/utils/models';
 
 // import components
 import { TaskCardComponent } from './task-card/task-card.component';
@@ -30,6 +31,10 @@ export class BoardComponent {
   categoryService = inject(CategoryService);
   boardService = inject(BoardService);
   taskService = inject(TaskService);
+  controlService = inject(ControllService);
+
+  searchPrompt: Signal<string> = signal('');
+  userTaskSearchList: Signal<User[]> = signal([]);
 
   constructor(){
     this.board = computed(()=>{
@@ -44,6 +49,16 @@ export class BoardComponent {
         let tasks = this.taskService.taskList();
         return tasks
       });
+
+      this.searchPrompt = computed(()=>{
+        let searchPrompt = this.controlService.searchPrompt();
+        return searchPrompt;
+      })
+
+      this.userTaskSearchList = computed(()=>{
+        let userTaskSearchList = this.controlService.userTaskSearch();
+        return userTaskSearchList;
+      })
   }
 
   changeCategoryName(category: Category){
@@ -64,6 +79,18 @@ export class BoardComponent {
 
   getTasksByCategory(category:Category):Task[]{
     return this.tasks().filter(task => task.category === category);
+  }
+
+  getTasksBySearchPrompt(tasks: Task[]): Task[]{
+    return tasks.filter(task => task.title.toLowerCase().includes(this.searchPrompt()));
+  }
+
+  getTasksByMember(tasks: Task[]): Task[]{
+    return (this.userTaskSearchList().length > 0)?tasks.filter(task => this.userTaskSearchList().includes(task.assignedTo)) : tasks ;
+  }
+
+  filterTask(category:Category):Task[]{
+    return this.getTasksByMember(this.getTasksBySearchPrompt(this.getTasksByCategory(category)));
   }
 
 }

@@ -6,6 +6,7 @@ import { Board, User } from '../../../shared/utils/models';
 
 //import services
 import { BoardService } from '../../../services/board.service';
+import { ControllService } from '../../../services/controll.service';
 
 @Component({
   selector: 'app-header',
@@ -16,8 +17,11 @@ import { BoardService } from '../../../services/board.service';
 })
 export class HeaderComponent {
   boardService = inject(BoardService);
+  ctrlService = inject(ControllService);
 
   selectedBoard: Signal<Board> = signal(new Board());
+
+  userSearchList: User[] = [];
 
   constructor(private router:Router){
     this.selectedBoard = computed(()=>{
@@ -31,5 +35,14 @@ export class HeaderComponent {
 
   deleteBoard(){
     this.boardService.deleteBoard(this.selectedBoard());
+  }
+
+  toggleUserAtSearchList(user:User){
+    if(!this.userSearchList.includes(user)){
+      this.userSearchList.push(user);
+    } else{
+      this.userSearchList.splice(this.userSearchList.indexOf(user), 1);
+    }
+    this.ctrlService.userTaskSearch.set(this.userSearchList);
   }
 }
