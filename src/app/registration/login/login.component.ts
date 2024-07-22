@@ -1,6 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { environment } from '../../../../environment/environment';
+import { HttpClient } from '@angular/common/http';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -12,19 +15,36 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   @Output() showRegisterCardEvent = new EventEmitter<'register'>();
 
-  email: string = '';
-  password: string = '';
+  private http = inject(HttpClient);
+
+  showLoginError: boolean = false; 
 
   constructor(private router: Router) { }
 
-  login(loginForm: NgForm){
+  async login(loginForm: NgForm){
     if (loginForm.valid) {
-      console.log('send login data to server', loginForm.value);
-      this.router.navigate(['/board']);
+      try {
+        let resp:any = await this.loginWithEmailAndPassword(loginForm.value.email,loginForm.value.password);
+        this.storeToken(resp.token);
+        this.router.navigate(['/board']);
+      } catch (error) {
+        this.showLoginError = true;
+      }
     }
   }
 
   showRegisterCard() {
     this.showRegisterCardEvent.emit('register');
   }
+
+  loginWithEmailAndPassword(email:string , password:string) {
+    let url = environment.serverUrl + 'login/';
+    const data = { email, password };
+    return lastValueFrom(this.http.post(url, data))
+  }
+
+  storeToken(token: string) {
+    localStorage.setItem('token', token);
+  }
+
 }

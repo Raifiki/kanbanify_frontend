@@ -34,6 +34,7 @@ export class HeaderComponent {
 
   logout(){
     console.log(this.selectedBoard());
+    this.removeToken();
     this.router.navigate(['/register']);
   }
 
@@ -49,4 +50,9 @@ export class HeaderComponent {
     }
     this.ctrlService.userTaskSearch.set(this.userSearchList());
   }
+
+  removeToken(){
+    localStorage.removeItem('token');
+  }
+
 }

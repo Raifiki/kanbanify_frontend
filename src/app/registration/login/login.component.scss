@@ -23,6 +23,14 @@
             background-color: transparent;
             width: 100%;
         }
+        > .msg-login-wrong{
+            display: none;
+            color:$err-red;
+        }
+        > .show-err-msg-login{
+            display: flex;
+        }
+
         > .btn-group{
             display: flex;
             flex-direction: row;

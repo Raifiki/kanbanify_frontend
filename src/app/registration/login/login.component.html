@@ -12,6 +12,7 @@
             <span>Please enter your password</span>
         </div>
         <span>* required field to login</span>
+        <span class="msg-login-wrong" [class.show-err-msg-login]="showLoginError">Wrong email or password :-( -- Please try again</span>
         <div class="btn-group">
             <button (click)="showRegisterCard()" class="btn btn-sec" type="button">register</button>
             <button class="btn btn-prim" type="submit" [disabled]="!formLogin.valid">login</button>

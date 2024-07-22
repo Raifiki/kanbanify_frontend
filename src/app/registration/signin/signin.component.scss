@@ -9,6 +9,7 @@
     background-color: $grey-middle;
     border-radius: 20px;
     padding: 75px 120px;
+    min-width: 800px;
     > form{
         display: flex;
         flex-direction: column;
@@ -17,6 +18,12 @@
         gap: 32px;
         background-color: transparent;
         width: 100%;
+        > .wrapper-ipt-fields{
+            width: 100%;
+            display: flex;
+            background-color: transparent;
+            gap: 32px;
+        }
         > span{
             color: $txt-sec;
             font-size: 14px;
@@ -34,6 +41,13 @@
         > .msg-pw-missmatch{
             display: flex;
             color: $err-red;
+        }
+        > .msg-signin-wrong{
+            display: none;
+            color:$err-red;
+        }
+        > .show-err-msg-signin{
+            display: flex;
         }
     }
     > .btn-icon{
