@@ -20,7 +20,7 @@ export class ToolbarComponent {
   constructor() { };
 
   addCategory() {
-    this.categoryService.addCategory();
+    this.categoryService.addCategory(this.boardService.selectedBoard());
   }
 
   showOvlyAddUser() {

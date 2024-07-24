@@ -63,10 +63,17 @@ export class User{
 export class Category {
     public name:string = '';
     public notUpdatedOnSercer:boolean = true;
+    public position:number = 0;
+    public id:number = 0;
 
-    constructor(name:string, snyWithServer?:boolean){
-        this.name = name;
-        this.notUpdatedOnSercer = !snyWithServer || false;
+
+    constructor(categoryJson?:any){
+        if (categoryJson){
+            this.name = categoryJson.name || '';
+            this.notUpdatedOnSercer = categoryJson.notUpdatedOnSercer || false;
+            this.position = categoryJson.position || 0;
+            this.id = categoryJson.id || 0;
+        }
     }
 }
 

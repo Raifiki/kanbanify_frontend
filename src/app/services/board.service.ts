@@ -32,24 +32,7 @@ export class BoardService {
   private boardURL  = environment.serverUrl + 'board/';
 
   constructor() {
-        //delete at end start
         this.getBoards();
-        setInterval(()=>{
-          if (false) {
-            this.boardList.update( boardList => {
-              boardList.push(new Board({name:'From Timer', members:[]}))
-              boardList[0].name = 'Changed';
-              return boardList
-            });   
-          } else if(false) {
-            this.selectedBoard.update(board => {
-              board.name = 'Changed';
-              let temp = board.categories[0];
-              return board
-            })
-          }
-        },10000);
-        // delete at end end
   }
 
   private getBoards(boardId?: number) {
@@ -117,7 +100,7 @@ export class BoardService {
   public deleteBoard(board:Board){
     const headers = new HttpHeaders().set('Authorization', 'Token ' + this.getToken());
     const url = this.boardURL + board.id + '/';
-    lastValueFrom(this.http.delete(url, { headers, responseType: 'text' }, )).then((data:any) => {
+    lastValueFrom(this.http.delete(url, { headers, responseType: 'text' } )).then((data:any) => {
       this.getBoards();
     })
   }

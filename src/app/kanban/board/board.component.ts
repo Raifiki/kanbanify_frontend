@@ -63,14 +63,14 @@ export class BoardComponent {
 
   changeCategoryName(category: Category){
     if(this.isCategoryNameValid(category.name)){
-      // ToDo: update Categorry and board on server, changes are already saved in Object
+      this.categoryService.updateCategory(category, this.boardService.selectedBoard());
       category.notUpdatedOnSercer = false;
     }
   }
 
 
   deleteCategory(category:Category){
-    this.categoryService.deleteCategory(category);
+    this.categoryService.deleteCategory(category, this.boardService.selectedBoard());
   }
 
   isCategoryNameValid(name: string){
