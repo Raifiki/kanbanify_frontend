@@ -103,6 +103,7 @@ export class Task{
     createdFrom:User = new User();
     board:Board = new Board();
 
+    id:number = 0;
 
     constructor(taskJson?:any){
         if (taskJson) {
@@ -113,9 +114,27 @@ export class Task{
             this.assignedTo = taskJson.assignedTo || new User();
             this.createdFrom = taskJson.createdFrom || new User();
             this.createdAt = new Date();
-            this.dueDate = taskJson.dueDate || undefined;
+            this.dueDate = new Date(taskJson.dueDate) || undefined;
             this.label = taskJson.label || new Label();
             this.priority = taskJson.priority || 'medium';
+            this.id = taskJson.id || 0;
         }
+    }
+
+    public getBEJson(){
+        return {
+            title: this.title,
+            description: this.description,
+            category_id: this.category.id,
+            //board: this.board,
+            assigned_to_id: this.assignedTo.id,
+            due_date: this.dateToString(this.dueDate),
+            label: this.label.name,
+            priority: this.priority
+        }
+    }
+
+    public dateToString(date:Date|undefined){
+        return (date)? date.toISOString().split('T')[0]: null;
     }
 }

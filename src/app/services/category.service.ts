@@ -1,4 +1,4 @@
-import { inject, Injectable, signal, WritableSignal } from '@angular/core';
+import { computed, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 
@@ -7,6 +7,7 @@ import { Board, Category } from '../../shared/utils/models';
 
 // import variables
 import { environment } from '../../../environment/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,13 +18,13 @@ export class CategoryService {
   private http = inject(HttpClient);
   private categoryURL  = environment.serverUrl + 'category/';
 
-
-  constructor() { }
+  constructor() {}
 
 
   public getCategories(board:Board){
     const url = this.categoryURL + '?board=' + board.id;
     const headers = new HttpHeaders().set('Authorization', 'Token ' + this.getToken());
+    if(board.name.length == 0) return
     lastValueFrom(this.http.get(url, { headers })).then((data) => {
       if (data instanceof Array) this.categories.set(this.getCategoryList(data));
     })
@@ -34,8 +35,8 @@ export class CategoryService {
     return (temp)? JSON.parse(temp).token : ''
   }
 
-  public getCategory(categoryName:string):Category | undefined{
-    return this.categories().find(cat => cat.name === categoryName);
+  public getCategoryById(categoryId:number):Category | undefined{
+    return this.categories().find(cat => cat.id === categoryId); // better to do with id
   }
 
   private getCategoryList(categoryListBE:any): Category[]{
@@ -56,6 +57,7 @@ export class CategoryService {
   public deleteCategory(category:Category, board:Board) {
     const url = this.categoryURL + category.id + '/' + '?board=' + board.id;
     const headers = new HttpHeaders().set('Authorization', 'Token ' + this.getToken());
+    if(board.name.length == 0) return
     lastValueFrom(this.http.delete(url, { headers, responseType: 'text' })).then((data) => {
       this.getCategories(board);
     })
@@ -65,6 +67,7 @@ export class CategoryService {
     const url = this.categoryURL + '?board=' + board.id;
     const headers = new HttpHeaders().set('Authorization', 'Token ' + this.getToken());
     const body = {'title': 'New Category'}
+    if(board.name.length == 0) return
     lastValueFrom(this.http.post(url, body,{ headers })).then((data) => {
       this.getCategories(board);
     })
@@ -74,6 +77,7 @@ export class CategoryService {
     const url = this.categoryURL + category.id + '/' + '?board=' + board.id;
     const headers = new HttpHeaders().set('Authorization', 'Token ' + this.getToken());
     const body = {'title': category.name}
+    if(board.name.length == 0) return
     lastValueFrom(this.http.put(url, body,{ headers })).then((data) => {
       this.getCategories(board);
     })

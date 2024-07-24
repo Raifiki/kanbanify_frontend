@@ -1,4 +1,6 @@
-import { inject, Injectable, signal, WritableSignal } from '@angular/core';
+import { computed, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { lastValueFrom } from 'rxjs';
 
 // inport models
 import { Board, Category, Task } from '../../shared/utils/models';
@@ -7,6 +9,9 @@ import { Board, Category, Task } from '../../shared/utils/models';
 import { LabelService } from './label.service';
 import { UserService } from './user.service';
 import { CategoryService } from './category.service';
+
+// import variables
+import { environment } from '../../../environment/environment';
 
 
 @Injectable({
@@ -20,52 +25,80 @@ export class TaskService {
   categoryService = inject(CategoryService);
   userService = inject(UserService);
 
-  constructor() { }
+  private http = inject(HttpClient);
+  private taskURL  = environment.serverUrl + 'task/';
 
+  constructor() { 
+  }
+  
   public getTasks(board:Board){
-    if (false) {
-      this.taskList.set([
-        this.getCleanTaskObj({ title: 'API fertig machen. Eine Karrte mit sehr langem Titel', description: 'EndPoint Definieren und Authentifizierung anpassen', category: 'ToDo', boardId: 'ABC', assignedTo: 'user1@example.com', createdFrom: 'user2@example.com', createdAt: '2024-08-12', dueDate: '2024-09-28', label: 'Backend1', priority: 'high' }),
-        this.getCleanTaskObj({ title: 'Design fertig machen', description: 'EndPoint Definieren und Authentifizierung anpassen. Ich habe eine sehr lange Beschreibung die über 2 Zeilen gehen sollte und irgendwann abgeschnitten wird.', category: 'In Progress', boardId: 'ABC', assignedTo: 'user1@example.com', createdFrom: 'user2@example.com', createdAt: '2024-06-12', dueDate: '2024-06-28', label: 'Frontend1', priority: 'medium' }),
-        this.getCleanTaskObj({ title: 'GUI fertig machen', description: 'EndPoint Definieren und Authentifizierung anpassen', category: 'Done', boardId: 'ABC', assignedTo: 'user2@example.com', createdFrom: 'user1@example.com', createdAt: '2024-08-12', dueDate: '2024-09-28', label: 'Backend1', priority: 'low' }),
-        this.getCleanTaskObj({ title: 'Customer Fragen klären', description: 'EndPoint Definieren und Authentifizierung anpassen', category: 'ToDo', boardId: 'ABC', assignedTo: 'user1@example.com', createdFrom: 'user2@example.com', createdAt: '2024-06-12', dueDate: '2024-06-28', label: 'Frontend1', priority: 'medium' }),
-        this.getCleanTaskObj({ title: 'Projektmeeting erstellen', description: 'EndPoint Definieren und Authentifizierung anpassen', category: 'In Progress', boardId: 'ABC', assignedTo: 'user1@example.com', createdFrom: 'user2@example.com', createdAt: '2024-06-12', dueDate: '2024-06-28', label: 'Design1', priority: 'high' }),
-        this.getCleanTaskObj({ title: 'Teamevent organisieren', description: 'EndPoint Definieren und Authentifizierung anpassen', category: 'ToDo', boardId: 'ABC', assignedTo: 'user2@example.com', createdFrom: 'user2@example.com', createdAt: '2024-08-12', dueDate: '2024-09-28', label: 'Design1', priority: 'low' }),
-        this.getCleanTaskObj({ title: 'API fertig machen', description: 'EndPoint Definieren und Authentifizierung anpassen', category: 'Done', boardId: 'ABC', assignedTo: 'user1@example.com', createdFrom: 'user1@example.com', createdAt: '2024-06-12', dueDate: '2024-06-28', label: 'Frontend1', priority: 'medium' }),
-        this.getCleanTaskObj({ title: 'API fertig machen', description: 'EndPoint Definieren und Authentifizierung anpassen', category: 'Done', boardId: 'ABC', assignedTo: 'user2@example.com', createdFrom: 'user2@example.com', createdAt: '2024-08-12', dueDate: '2024-09-28', label: 'Frontend1', priority: 'low' }),
-        this.getCleanTaskObj({ title: 'API fertig machen', description: 'EndPoint Definieren und Authentifizierung anpassen', category: 'In Progress', boardId: 'ABC', assignedTo: 'user1@example.com', createdFrom: 'user2@example.com', createdAt: '2024-06-12', dueDate: '2024-06-28', label: 'Backend1', priority: 'high' }),
-        this.getCleanTaskObj({ title: 'API fertig machen', description: 'EndPoint Definieren und Authentifizierung anpassen', category: 'ToDo', boardId: 'ABC', assignedTo: 'user1@example.com', createdFrom: 'user1@example.com', createdAt: '2024-08-12', dueDate: '2024-06-28', label: 'Backend1', priority: 'medium' }),
-      ]);      
-    } else {
-      this.taskList.set([]);
-    }
+    const url = this.taskURL + '?board=' + board.id;
+    const headers = new HttpHeaders().set('Authorization', 'Token ' + this.getToken());
+    if(board.name.length == 0) return
+    lastValueFrom(this.http.get(url, { headers })).then((data) => {
+      if (data instanceof Array) this.taskList.set(this.getTaskList(data));
+    })
   }
 
-  public createTask(newTask: Task) {
-    this.taskList.update((tasks) => [...tasks, new Task(newTask)]);
-    // ToDo upload in Server
+
+
+
+  private getToken(){
+    let temp = localStorage.getItem('credentials')
+    return (temp)? JSON.parse(temp).token : ''
   }
 
-  public removeTask(task: Task) {
-    this.taskList.update((tasks) => tasks.filter((t) => t !== task));
-    // ToDo upload in Server
+
+  private getTaskList(taskListBE:any): Task[]{
+    let taskList: Task[] = [];
+    if(taskListBE instanceof Array) taskListBE.forEach(taskObjBE => taskList.push(this.getCleanTaskObj(taskObjBE)));
+    return taskList
+  }
+
+  public createTask(newTask: Task, board:Board) {
+    const url = this.taskURL + '?board=' + board.id;
+    const headers = new HttpHeaders().set('Authorization', 'Token ' + this.getToken());
+    const body = newTask.getBEJson();
+    if(board.name.length == 0) return
+    lastValueFrom(this.http.post(url, body, { headers })).then((data) => {
+      this.getTasks(board);
+    })
+  }
+
+
+  updateTask(task: Task, board: Board) {
+    const url = this.taskURL + task.id + '/' + '?board=' + board.id;
+    const headers = new HttpHeaders().set('Authorization', 'Token ' + this.getToken());
+    const body = task.getBEJson();
+    if(board.name.length == 0) return
+    lastValueFrom(this.http.put(url, body, { headers })).then((data) => {
+      this.getTasks(board);
+    })
+  }
+
+  public removeTask(task: Task, board: Board) {
+    const url = this.taskURL+ task.id + '/' + '?board=' + board.id;
+    const headers = new HttpHeaders().set('Authorization', 'Token ' + this.getToken());
+    if(board.name.length == 0) return
+    lastValueFrom(this.http.delete(url, { headers, responseType: 'text' })).then((data) => {
+      this.getTasks(board);
+    })
   }
 
   private getCleanTaskObj(obj:any){
     let taskJson = {
       title: obj.title,
       description: obj.description,
-      category: this.categoryService.getCategory(obj.category),
-      board: obj.board,
-      assignedTo: this.userService.getUserByEmail(obj.assignedTo),
-      createdFrom: this.userService.getUserByEmail(obj.createdFrom),
-      createdAt: obj.createdAt,
-      dueDate: obj.dueDate,
+      category: this.categoryService.getCategoryById(obj.category.id),
+      assignedTo: this.userService.getUserByEmail(obj.assigned_to.email),
+      createdFrom: this.userService.getUserByEmail(obj.created_from.email),
+      createdAt: obj.created_at,
+      dueDate: obj.due_date,
       label: this.labelService.getLabel(obj.label),
-      priority: obj.priority
+      priority: obj.priority,
+      id: obj.id
     }
     return new Task(taskJson);
   }
-
 
 }

@@ -12,15 +12,17 @@ import { BoardService } from './board.service';
 export class LabelService {
 
   labels: WritableSignal<Label[]> = signal([]);
-  constructor() {}
+  constructor() {
+    this.getLabels();
+  }
 
 
-  getLabels(board:Board) {
+  getLabels() {
       this.labels.set([
-        new Label("Frontend1", "#FF6F00"),
-        new Label("Backend1", "#FFA07A"),
-        new Label("Design1", "#2ECC71"),
-        new Label("Customer1", "#87CEFA")
+        new Label("Frontend", "#FF6F00"),
+        new Label("Backend", "#FFA07A"),
+        new Label("Design", "#2ECC71"),
+        new Label("Customer", "#87CEFA")
       ])
   }
 

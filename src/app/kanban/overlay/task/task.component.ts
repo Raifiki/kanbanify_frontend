@@ -33,6 +33,7 @@ export class TaskComponent {
   members:Signal<User[]> = signal([]);
   categories: Signal<Category[]> = signal([]);
   labels: Signal<Label[]> = signal([]);
+  dueDate: string = '';
 
   showDDAssignedTo:boolean = false;
   showDDCategory:boolean = false;
@@ -44,6 +45,7 @@ export class TaskComponent {
       let task = new Task({category: this.categoryService.categories()[0]});
       if (this.taskOverlayType == 'edit') {
         task = new Task(this.controlService.selectedTask());
+        this.dueDate = (task.dueDate)? task.dueDate.toISOString().split('T')[0]:''
       }
       return task;
     });
@@ -52,13 +54,14 @@ export class TaskComponent {
   }
   
   createTask(form:NgForm) {
-    console.log('Moin',this.task());
+    this.task().dueDate = (this.dueDate)? new Date(this.dueDate): undefined;
     if (this.taskOverlayType == 'create') {
       this.addMissingTaskDetails();
-      this.taskService.createTask(this.task());
+      this.taskService.createTask(this.task(), this.boardService.selectedBoard());
     } else {
       let selTaskObj = this.controlService.selectedTask();
       selTaskObj =Object.assign( selTaskObj,this.task());
+      this.taskService.updateTask(selTaskObj, this.boardService.selectedBoard());
     }
     form.reset();
     this.controlService.initOverlay();
@@ -67,7 +70,7 @@ export class TaskComponent {
   }
 
   removeTask(){
-    this.taskService.removeTask(this.controlService.selectedTask());
+    this.taskService.removeTask(this.controlService.selectedTask(), this.boardService.selectedBoard());
     this.controlService.initOverlay();
   }
 
@@ -123,6 +126,10 @@ export class TaskComponent {
     form.reset();
     this.controlService.initOverlay();
     //todo: handle cancel of edit task
+  }
+
+  isAssignedToSelected(){
+    return this.task().assignedTo.name.length>0
   }
 
 }

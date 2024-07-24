@@ -78,7 +78,7 @@ export class BoardComponent {
   }
 
   getTasksByCategory(category:Category):Task[]{
-    return this.tasks().filter(task => task.category === category);
+    return this.tasks().filter(task => task.category.id === category.id);
   }
 
   getTasksBySearchPrompt(tasks: Task[]): Task[]{

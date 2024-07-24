@@ -7,12 +7,12 @@ import { Board, User } from '../../shared/utils/models';
 
 // impomrt services
 import { UserService } from './user.service';
-import { LabelService } from './label.service';
 import { TaskService } from './task.service';
 import { CategoryService } from './category.service';
 
 // import variables
 import { environment } from '../../../environment/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -24,14 +24,13 @@ export class BoardService {
   public categoryList: WritableSignal<string[]> = signal([]);
 
   private categoryService = inject(CategoryService);
-  private labelService = inject(LabelService);
   private userService = inject(UserService);
   private taskService = inject(TaskService);
 
   private http = inject(HttpClient);
   private boardURL  = environment.serverUrl + 'board/';
 
-  constructor() {
+  constructor(private router: Router) {
         this.getBoards();
   }
 
@@ -44,7 +43,9 @@ export class BoardService {
         else this.selectBoard(this.boardList()[0])
       } 
       else this.selectBoard(new Board());
-    });
+    }).catch((err) => {
+      if (err.status === 401) this.router.navigate(['register/']);
+    });;
   }
 
   private getToken(){
@@ -60,7 +61,6 @@ export class BoardService {
 
   selectBoard(board: Board) {
     this.selectedBoard.set(board);
-    this.labelService.getLabels(this.selectedBoard());
     this.categoryService.getCategories(this.selectedBoard());
     this.taskService.getTasks(this.selectedBoard());
   }
@@ -100,6 +100,7 @@ export class BoardService {
   public deleteBoard(board:Board){
     const headers = new HttpHeaders().set('Authorization', 'Token ' + this.getToken());
     const url = this.boardURL + board.id + '/';
+    if(board.name.length == 0) return
     lastValueFrom(this.http.delete(url, { headers, responseType: 'text' } )).then((data:any) => {
       this.getBoards();
     })
@@ -122,6 +123,7 @@ export class BoardService {
   public updateBoardMembers(memberList:User[]){
     const headers = new HttpHeaders().set('Authorization', 'Token ' + this.getToken());
     const body = {members: memberList.map(member => member.id)}
+    if(this.selectedBoard().name.length == 0) return
     let url = this.boardURL + this.selectedBoard().id + '/';
     lastValueFrom(this.http.put(url, body,{ headers })).then((data) => {
       this.selectedBoard.update(board => {

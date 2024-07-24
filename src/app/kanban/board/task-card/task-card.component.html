@@ -7,7 +7,7 @@
     <div class="task-card-details">
         <div class="task-card-duedate-wrapper">
             <span>Due Date:</span>
-            <span [class.due-date-passed]="isDueDatePassed()">{{task.dueDate}}</span>
+            <span [class.due-date-passed]="isDueDatePassed()">{{task.dateToString(task.dueDate)}}</span>
         </div>
         <div class="task-card-priority-wrapper">
             <div [ngClass]="{low: task.priority === 'low', medium: task.priority === 'medium', high: task.priority === 'high'}"></div>
