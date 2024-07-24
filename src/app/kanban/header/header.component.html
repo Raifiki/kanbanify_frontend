@@ -1,8 +1,12 @@
 <div class="wrapper-header">
     <div class="header-board-info">
         <div class="wrapper-board-name">
-            <button (click)="deleteBoard()" class="btn btn-icon delete"></button>
-            <h1>{{ selectedBoard().name }}</h1>
+            @if(selectedBoard().name.length>0) {
+                <button (click)="deleteBoard()" class="btn btn-icon delete"></button>
+                <h1>{{ selectedBoard().name }}</h1>
+            } @else {
+                <h1>No available Board, please create your first board </h1>
+            }
         </div>
         <div class="header-user-list">
             @for (user of selectedBoard().members; track user; let idx=$index) {

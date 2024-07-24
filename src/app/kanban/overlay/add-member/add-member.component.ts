@@ -5,9 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { User } from '../../../../shared/utils/models';
 
 // import services
-import { UserService } from '../../../../services/user.service';
-import { BoardService } from '../../../../services/board.service';
-import { ControllService } from '../../../../services/controll.service';
+import { UserService } from '../../../services/user.service';
+import { BoardService } from '../../../services/board.service';
+import { ControllService } from '../../../services/controll.service';
 
 @Component({
   selector: 'app-add-member',
@@ -42,29 +42,29 @@ export class AddMemberComponent {
   }
 
   isUserMember(user:User){
-    return this.controlService.selectedMembers.includes(user);
+    return this.controlService.selectedMembers().includes(user);
   }
 
   toggleUser(user:User){
-    if (!this.controlService.selectedMembers.includes(user)) {
-      this.controlService.selectedMembers.push(user);
-      user.addBoard(this.boardService.selectedBoard());
+    if (!this.controlService.selectedMembers().includes(user)) {
+      this.controlService.selectedMembers().push(user);
+      //user.addBoard(this.boardService.selectedBoard());
     } else{
-      let idx = this.controlService.selectedMembers.findIndex( u => u === user);
-      this.controlService.selectedMembers.splice(idx, 1);
-      user.removeBoard(this.boardService.selectedBoard());
+      let idx = this.controlService.selectedMembers().findIndex( u => u === user);
+      this.controlService.selectedMembers().splice(idx, 1);
+      //user.removeBoard(this.boardService.selectedBoard());
     }
   }
 
   updateMembers(){
     if(this.isMemberSelectionValid()){
-      this.boardService.updateBoardMembers(this.controlService.selectedMembers);
+      this.boardService.updateBoardMembers(this.controlService.selectedMembers());
       this.controlService.setShowOverlay(false);
     }
   }
 
   isMemberSelectionValid(){
-    return this.controlService.selectedMembers.length > 0;
+    return this.controlService.selectedMembers().length > 0;
   }
 
 }

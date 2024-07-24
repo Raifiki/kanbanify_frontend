@@ -5,8 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { Board } from '../../../shared/utils/models';
 
 // import services
-import { BoardService } from '../../../services/board.service';
-import { ControllService } from '../../../services/controll.service';
+import { BoardService } from '../../services/board.service';
+import { ControllService } from '../../services/controll.service';
 
 @Component({
   selector: 'app-sidebar',

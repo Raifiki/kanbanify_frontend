@@ -2,14 +2,14 @@ export class Board{
     name:string = '';
     members: User[] = [];
     categories: string[] = [];
-    id:string = '';
+    id:number = 0;
 
     constructor(boardJson?:any){
         if (boardJson) {
             this.name = boardJson.name || '';
             this.members = boardJson.members || [];
             this.categories = boardJson.categories || [];
-            this.id = boardJson.id || '';
+            this.id = boardJson.id || 0;
         }
     }
 }
@@ -21,7 +21,8 @@ export class User{
     activeBoard:Board = new Board();
     initials:string = '';
     email:string = '';
-    boards:Board[] = [];
+    id: number = 0;
+    //boards:Board[] = [];
 
     constructor(userJson?:any){
         if (userJson) {
@@ -30,7 +31,8 @@ export class User{
             this.initials = this.getInitials();
             this.activeBoard = userJson.activeBoard || new Board();
             this.email = userJson.email || '';
-            this.boards = userJson.boards || [];
+            this.id = userJson.id || 0;
+            //this.boards = userJson.boards || [];
         }
     }
 
@@ -47,7 +49,7 @@ export class User{
         this.surename = newSurename;
         this.initials = this.getInitials();
     }
-
+    /*
     public addBoard(board:Board){
         if(!this.boards.includes(board))this.boards.push(board);
     }
@@ -55,7 +57,7 @@ export class User{
     public removeBoard(board:Board){
         if(this.boards.includes(board))this.boards.splice(this.boards.indexOf(board), 1);
     }
-
+    */
 }
 
 export class Category {

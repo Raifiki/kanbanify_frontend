@@ -1,7 +1,7 @@
 import { Injectable, signal, WritableSignal } from '@angular/core';
 
 // import models
-import { Board, Category } from '../shared/utils/models';
+import { Board, Category } from '../../shared/utils/models';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class CategoryService {
       new Category('ToDo', true),
       new Category('Done',true),
     ]
-    this.categories.set( this.sortCategories(board.categories, catFromServer) );
+    this.categories.set( catFromServer);
   }
 
   private sortCategories(sortedCategoryNames:string[], categories:Category[]):Category[]{

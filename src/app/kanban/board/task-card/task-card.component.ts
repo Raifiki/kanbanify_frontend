@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Task } from '../../../../shared/utils/models';
 
 //import services
-import { ControllService } from '../../../../services/controll.service';
+import { ControllService } from '../../../services/controll.service';
 
 @Component({
   selector: 'app-task-card',

@@ -25,7 +25,7 @@ export class LoginComponent {
     if (loginForm.valid) {
       try {
         let resp:any = await this.loginWithEmailAndPassword(loginForm.value.email,loginForm.value.password);
-        this.storeToken(resp.token);
+        this.storeCredentials(resp.token, loginForm.value.email);
         this.router.navigate(['/board']);
       } catch (error) {
         this.showLoginError = true;
@@ -43,8 +43,9 @@ export class LoginComponent {
     return lastValueFrom(this.http.post(url, data))
   }
 
-  storeToken(token: string) {
-    localStorage.setItem('token', token);
+  storeCredentials(token: string, email:string) {
+    let credentials = { token, email };
+    localStorage.setItem('credentials', JSON.stringify(credentials));
   }
 
 }

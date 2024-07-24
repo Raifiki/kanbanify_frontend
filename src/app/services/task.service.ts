@@ -1,7 +1,7 @@
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 
 // inport models
-import { Board, Category, Task } from '../shared/utils/models';
+import { Board, Category, Task } from '../../shared/utils/models';
 
 // import services
 import { LabelService } from './label.service';
@@ -23,7 +23,7 @@ export class TaskService {
   constructor() { }
 
   public getTasks(board:Board){
-    if (board.name == 'Board 1') {
+    if (false) {
       this.taskList.set([
         this.getCleanTaskObj({ title: 'API fertig machen. Eine Karrte mit sehr langem Titel', description: 'EndPoint Definieren und Authentifizierung anpassen', category: 'ToDo', boardId: 'ABC', assignedTo: 'user1@example.com', createdFrom: 'user2@example.com', createdAt: '2024-08-12', dueDate: '2024-09-28', label: 'Backend1', priority: 'high' }),
         this.getCleanTaskObj({ title: 'Design fertig machen', description: 'EndPoint Definieren und Authentifizierung anpassen. Ich habe eine sehr lange Beschreibung die über 2 Zeilen gehen sollte und irgendwann abgeschnitten wird.', category: 'In Progress', boardId: 'ABC', assignedTo: 'user1@example.com', createdFrom: 'user2@example.com', createdAt: '2024-06-12', dueDate: '2024-06-28', label: 'Frontend1', priority: 'medium' }),

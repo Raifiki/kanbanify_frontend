@@ -11,7 +11,7 @@ import { OverlayComponent } from "./overlay/overlay.component";
 import { OverlayState } from '../../shared/utils/interfaces';
 
 // import services
-import { ControllService } from '../../services/controll.service';
+import { ControllService } from '../services/controll.service';
 
 
 

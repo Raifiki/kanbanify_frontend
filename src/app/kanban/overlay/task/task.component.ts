@@ -5,12 +5,12 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Category, Label, Task, User } from '../../../../shared/utils/models';
 
 //import services
-import { BoardService } from '../../../../services/board.service';
-import { ControllService } from '../../../../services/controll.service';
-import { LabelService } from '../../../../services/label.service';
-import { CategoryService } from '../../../../services/category.service';
-import { TaskService } from '../../../../services/task.service';
-import { UserService } from '../../../../services/user.service';
+import { BoardService } from '../../../services/board.service';
+import { ControllService } from '../../../services/controll.service';
+import { LabelService } from '../../../services/label.service';
+import { CategoryService } from '../../../services/category.service';
+import { TaskService } from '../../../services/task.service';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-task',

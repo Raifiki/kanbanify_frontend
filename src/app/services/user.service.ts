@@ -1,7 +1,12 @@
-import { Injectable, signal, WritableSignal } from '@angular/core';
+import { inject, Injectable, signal, WritableSignal } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { lastValueFrom } from 'rxjs';
 
 // import models
-import { Board, User } from '../shared/utils/models';
+import { Board, User } from '../../shared/utils/models';
+
+// add variables
+import { environment } from '../../../environment/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +14,8 @@ import { Board, User } from '../shared/utils/models';
 export class UserService {
   public userList: WritableSignal<User[]> = signal([]);
   public signedInUser: WritableSignal<User> = signal(new User());
+
+  private http = inject(HttpClient);
 
   constructor() {
     this.userList.set([
@@ -38,7 +45,8 @@ export class UserService {
       new User({ name: 'Xander', surename: 'XanderWilson', activeBoard: new Board(), email: 'user24@example.com' }),
       new User({ name: 'Yvonne', surename: 'YvonneJohnson', activeBoard: new Board(), email: 'user25@example.com' })
     ])
-    this.signedInUser.set(this.userList()[0]);
+    this.getUsers();
+    this.signedInUser.set(this.getSignedInUser());
 
     setInterval(() => {
       if (true) {
@@ -50,6 +58,42 @@ export class UserService {
       }
       
     },15000);
+   }
+
+   private getUsers(){
+    let url = environment.serverUrl + 'user/';
+    const headers = new HttpHeaders().set('Authorization', 'Token ' + this.getToken());
+    lastValueFrom(this.http.get(url, { headers })).then((data) => {
+      this.userList.set(this.getUserList(data));
+    });
+   }
+
+   private getToken(){
+    let temp = localStorage.getItem('credentials')
+    return (temp)? JSON.parse(temp).token : ''
+  }
+
+   private getUserList(userListBE:any): User[] {
+    let userlist: User[] = [];
+    if (userListBE instanceof Array) userListBE.forEach(userObjBE => userlist.push(this.getCleanUserObj(userObjBE)))
+    return userlist;
+   }
+
+   private getCleanUserObj(objBE:any): User {
+     return new User({ 
+      name: objBE.first_name, 
+      surename: objBE.last_name, 
+      activeBoard: new Board(), 
+      email: objBE.email,
+      id: objBE.id,
+    });
+   }
+
+   private getSignedInUser(){
+     let credentials = localStorage.getItem('credentials');
+     let email =  (credentials)? JSON.parse(credentials).email : '';
+     let user = this.userList().find(user => user.email === email)
+     return user || new User();
    }
 
    getUserByEmail(email:string): User|undefined {

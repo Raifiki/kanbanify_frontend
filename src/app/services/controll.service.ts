@@ -1,10 +1,10 @@
-import { inject, Injectable, signal, WritableSignal } from '@angular/core';
+import { computed, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
 
 // import types and interfaces
-import { OverlayState } from '../shared/utils/interfaces';
+import { OverlayState } from '../../shared/utils/interfaces';
 
 // import models
-import { Task, User } from '../shared/utils/models';
+import { Task, User } from '../../shared/utils/models';
 
 // import services
 import { BoardService } from './board.service';
@@ -21,7 +21,7 @@ export class ControllService {
   boardService = inject(BoardService);
   categoryService = inject(CategoryService);
 
-  selectedMembers: User[] = [];
+  selectedMembers: Signal<User[]>= signal([]);
   selectedTask: WritableSignal<Task> = signal(new Task());
 
   searchPrompt: WritableSignal<string> = signal('');
@@ -29,6 +29,7 @@ export class ControllService {
 
   constructor() { 
     this.initOverlay();
+    this.initSelectedMembers()
   }
 
   public setOverlayType(ovlyType: OverlayState){
@@ -37,7 +38,7 @@ export class ControllService {
 
   public setShowOverlay(show: boolean){
     this.showOverlay.set(show);
-    if (!show) {
+    if (show) {
       this.initSelectedMembers();
     }
   }
@@ -47,8 +48,11 @@ export class ControllService {
   }
 
   private deepCopyBoardMemberList(){
-    this.selectedMembers = [];
-    this.boardService.selectedBoard().members.forEach(member => this.selectedMembers.push(member))
+    this.selectedMembers = computed(()=>{
+      let memberList: User[] = [];
+      this.boardService.selectedBoard().members.forEach(member => memberList.push(member))
+      return memberList;
+    })
   }
 
   public setSelectedTask(task: Task){

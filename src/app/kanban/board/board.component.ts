@@ -2,10 +2,10 @@ import { Component, computed, inject, signal, Signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 // import services
-import { BoardService } from '../../../services/board.service';
-import { CategoryService } from '../../../services/category.service';
-import { ControllService } from '../../../services/controll.service';
-import { TaskService } from '../../../services/task.service';
+import { BoardService } from '../../services/board.service';
+import { CategoryService } from '../../services/category.service';
+import { ControllService } from '../../services/controll.service';
+import { TaskService } from '../../services/task.service';
 
 // import models
 import { Board, Category, Task, User } from '../../../shared/utils/models';

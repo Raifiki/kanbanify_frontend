@@ -5,8 +5,8 @@ import { Router } from '@angular/router';
 import { Board, User } from '../../../shared/utils/models';
 
 //import services
-import { BoardService } from '../../../services/board.service';
-import { ControllService } from '../../../services/controll.service';
+import { BoardService } from '../../services/board.service';
+import { ControllService } from '../../services/controll.service';
 
 @Component({
   selector: 'app-header',
@@ -34,7 +34,7 @@ export class HeaderComponent {
 
   logout(){
     console.log(this.selectedBoard());
-    this.removeToken();
+    this.removeCredentials();
     this.router.navigate(['/register']);
   }
 
@@ -51,8 +51,8 @@ export class HeaderComponent {
     this.ctrlService.userTaskSearch.set(this.userSearchList());
   }
 
-  removeToken(){
-    localStorage.removeItem('token');
+  removeCredentials(){
+    localStorage.removeItem('credentials');
   }
 
 }
