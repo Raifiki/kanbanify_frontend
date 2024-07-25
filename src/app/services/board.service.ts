@@ -34,7 +34,7 @@ export class BoardService {
         this.getBoards();
   }
 
-  private getBoards(boardId?: number) {
+  public getBoards(boardId?: number) {
     const headers = new HttpHeaders().set('Authorization', 'Token ' + this.getToken());
     lastValueFrom(this.http.get(this.boardURL, { headers })).then((data) => {
       if (data instanceof Array) this.boardList.set(this.getBoardList(data));

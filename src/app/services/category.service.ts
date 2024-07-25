@@ -24,7 +24,10 @@ export class CategoryService {
   public getCategories(board:Board){
     const url = this.categoryURL + '?board=' + board.id;
     const headers = new HttpHeaders().set('Authorization', 'Token ' + this.getToken());
-    if(board.name.length == 0) return
+    if(board.name.length == 0) {
+      this.categories.set([])
+      return
+    }
     lastValueFrom(this.http.get(url, { headers })).then((data) => {
       if (data instanceof Array) this.categories.set(this.getCategoryList(data));
     })

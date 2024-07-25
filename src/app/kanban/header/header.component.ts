@@ -33,7 +33,6 @@ export class HeaderComponent {
   }
 
   logout(){
-    console.log(this.selectedBoard());
     this.removeCredentials();
     this.router.navigate(['/register']);
   }

@@ -21,20 +21,9 @@ export class UserService {
   constructor(private router: Router) {
     this.getUsers();
     this.signedInUser.set(this.getSignedInUser());
-
-    setInterval(() => {
-      if (true) {
-        this.userList.update( userList => {
-          userList[0].changeName('Leonardo');
-          console.log('name changed');
-          return userList
-        })
-      }
-      
-    },15000);
    }
 
-   private getUsers(){
+   public getUsers(){
     let url = environment.serverUrl + 'user/';
     const headers = new HttpHeaders().set('Authorization', 'Token ' + this.getToken());
     lastValueFrom(this.http.get(url, { headers })).then((data) => {

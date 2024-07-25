@@ -5,6 +5,10 @@ import { environment } from '../../../../environment/environment';
 import { HttpClient } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 
+// import services
+import { BoardService } from '../../services/board.service';
+import { UserService } from '../../services/user.service';
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -18,6 +22,8 @@ export class LoginComponent {
   private http = inject(HttpClient);
 
   showLoginError: boolean = false; 
+  boardService = inject(BoardService);
+  userService = inject(UserService);
 
   constructor(private router: Router) { }
 
@@ -26,6 +32,8 @@ export class LoginComponent {
       try {
         let resp:any = await this.loginWithEmailAndPassword(loginForm.value.email,loginForm.value.password);
         this.storeCredentials(resp.token, loginForm.value.email);
+        this.boardService.getBoards();
+        this.userService.getUsers();
         this.router.navigate(['/board']);
       } catch (error) {
         this.showLoginError = true;
